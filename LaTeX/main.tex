@@ -5,7 +5,7 @@
 \addbibresource{bibliography.bib}
 
 
-\title{Project 2: STK Practice}
+\title{Project 2: Experiments in STK}
 \author{Claudio Vestini}
 
 
@@ -15,14 +15,45 @@
 
 \section{Introduction} \label{sec:intro}
 
+This document reports a study carried out on the Ansys software package Systems Tool Kit (STK), aimed at exploring the capabilities of the program through experiments with satellites and their orbits. The work was carried out using \texttt{STK 12.10} locally on a Razer Blade 14 (Windows 11) machine. The plots were generated using the \texttt{Report \& Graph Manager} toolbox included in the STK package.
 
+\section{Orbits}
+
+This section presents numerical experiments involving satellites in Earth-bound orbits. In general, STK is principally used to simulate (or propagate) orbital coordinates (elements) for satellites around celestial bodies. The simulation is carried out numerically via a \emph{propagator}, which finds solutions to the (differential) governing equations through discretising the domains and advancing in small steps. The governing equations used are sophisticated and often involve several additional influences beyond the standard perturbed ``two-body" problem discussed in class. For this section, we adopted the High Precision Orbit Propagator (HPOP) within the STK satellite objects. Major perturbations--which for an Earth-orbiting satellite include the non-sphericity of the Earth, lunisolar gravitational effects, atmospheric drag, and solar radiation pressure (SRP)--are all modelled with high fidelity by this propagator, which also includes Earth-motion effects.
+
+\subsection{Low Earth Orbit Vehicle}
+
+The first experiment investigated the effects of varying the drag coefficient $C_d$ for satellites in circular, low-earth orbits (LEO). LEOs are defined as any orbit with an altitude above Earth's surface lower than \SI{2000}{\kilo\metre}, and are typically used for remote sensing and constellation communications. Since these orbits are closest to the Earth, they are the most influenced by atmospheric drag. The influence on a body with cross-sectional area $A_d$ moving at speed $U_\infty$ through a fluid with density $\rho$ is mathematically defined by the drag force $F_d$ (measured in Newtons) as $F_d := \frac{1}{2} \rho C_d  A_d U_\infty^2$. The drag coefficient $C_d = \frac{2F_d}{\rho A_d U_\infty ^2}$ measured the percentage of the total dynamic head $ \frac{1}{2} \rho U_\infty^2$ is converted to drag force experienced by the body, per unit area. It is a measure of how ``streamlined" the geometry of body is, and its numerical value typically ranges from $2.0$ to $2.5$ for LEO satellites\footnote{At LEO altitudes, the air around the satellite is in its free-molecular regime, thus it is possible for the value of drag coefficient to exceed 1.}.
+
+Our experiment involved the simulation of 5 satellites in identical \SI{300}{\kilo\metre}, \SI{45}{\degree} inclination, circular orbits around the Earth, under the influence of HPOP perturbations with varying values of drag coefficient $C_d$, ranging from $2$ to $10$ in uniform increments. We note that these values are largely higher than common values for typical LEO satellites, as the experiment was designed to test the efficacy of the HPOP propagator. Except for drag coefficient, all satellites had identical force models, including up to 21st-order Joint Gravity Model (JGM) perturbations, lunisolar influences, and spherical SRP accelerations (but no albedo radiation effects). The satellites were all given the same Area-to-Mass ratio of \SI{0.02}{\metre\squared\per\kilogram}. The altitude was indirectly tracked via the fixed orbital radius spherical element $r$ (note $h = r - R_E$, where $h$ is the altitude and $R_E = \SI{6378}{\kilo\metre}$ is the mean radius of the Earth), and the simulation was run from 11/01/2019, 12:00:00 UTC to 11/05/2019, 12:00:00 UTC. We note that, due to orbital decay induced by atmospheric drag, some of the simulations were truncated at an altitude of roughly \SI{80}{\kilo\metre}\footnote{The HPOP propagator is most appropriate at altitudes of \SI{120}{\kilo\metre} and above, as it does not fully model the transition to continuum flow. Thus, the results below this altitude are unlikely to give reliable results.}. The results of our simulation are displayed in Figure~\ref{fig:drag_coefficient}.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{LaTeX/Figures/LEO_Vehicle_Drag_Decay_Cd10.png}
-    \caption{.}
-    \label{fig:}
+    \includegraphics[width=\textwidth]{LaTeX/Figures/LEO_Vehicle_Drag_Decay_Comparison.png}
+    \caption{Comparison of the propagation of Orbital Radius (from fixed spherical elements) with time for satellites with values of drag coefficient ranging from 2 to 10. The satellites are labelled using the key ``Satellite\{$C_d$\}", where $C_d$ indicated the numerical value of drag coefficient for the given satellite.}
+    \label{fig:drag_coefficient}
 \end{figure}
 
+From Figure~\ref{fig:drag_coefficient} we observe a non-monotonic, downward drift in orbital radius for each satellite, with stronger effects for stronger values of drag coefficient. This reflects expectation, as satellites with higher $C_d$ will experience a higher drag force and therefore decay faster. Note that the four satellites with higher-than-realistic drag coefficients (Black with $C_d = 10$, Green with $C_d = 8$, Yellow with $C_d = 6$, Magenta with $C_d = 4$) all re-enter through the Kalman line (an altitude of $h = \SI{100}{\kilo\metre}$, or radius $r=\SI{6478}{\kilo\metre}$). The non-monotonic oscillations (at a natural frequency of roughly 90 minutes) are due to the orbital elongation due to the influence of drag: as the satellite's orbit is lowered, its eccentricity increases above 0, effectively changing the satellite's trajectory from a perfectly circular to an elliptical orbit. Thus, the satellite rises to apogee and falls to perigee with each iteration, giving rise to the oscillations in Figure~\ref{fig:drag_coefficient}. In fact, for an initial orbital semi-major axis of $a=\SI{6678}{\kilo\metre}$, the initial orbital period is calculated as $\tau = 2\pi \sqrt{a^3\mu^{-1}} \approx 90\text{min}35\text{s}$ (where $\mu \approx \SI{3.98e5}{\kilo\metre^3\second^{-2}}$ is Earth's constant of gravitation), which exactly corresponds to the natural frequency of the oscillations.
+
+\subsection{Medium Earth Orbit Vehicle}
+
+\subsection{Highly Elliptical Orbit Vehicle}
+
+\subsection{Geosynchronous Orbit Vehicle}
+
+\subsection{Illustrating The Drag Paradox}
+
+\section{Orbit Transfers}
+
+\subsection{Hohmann Transfer}
+
+\subsection{Bielliptic Transfer}
+
+\subsection{Inclination Change}
+
+\subsection{Sphere of Influence}
+
+\section{Conclusion}
 
 \end{document}
