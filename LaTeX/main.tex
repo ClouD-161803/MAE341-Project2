@@ -177,6 +177,40 @@ This results in the following theoretical mission requirements:
     \item Transfer Time: $\Delta t \approx \SI{64275}{\second}$ (or $\approx \SI{17.85}{\hour}$)
 \end{itemize}
 
+We attempted two methods to implement this manoeuvre in \texttt{Astrogator}. The first method involved ``hard-coding" the impulsive manoeuvres using the exact \SI{2.808}{\kilo\metre\per\second} and \SI{1.268}{\kilo\metre\per\second} $\Delta v$ values derived from the theoretical two-body calculation. This approach proved unsuccessful. The theoretical values do not account for the perturbative forces (e.g., Earth's oblateness, lunisolar gravity) included in the STK propagator. These perturbations, though small, compound over the long \SI{17.8}{\hour} transfer, causing the satellite to miss its target altitude and velocity, as illustrated in Figure~\ref{fig:hohmann_failed}.
+% The manoeuvre summary (\texttt{Failed\_Hohmann\_Sat\_Maneuver\_Summary.csv}) for this attempt confirms the total $\Delta V$ was exactly the theoretical \SI{4076}{\metre\per\second}.
+
+A second, more robust attempt was made using \texttt{Astrogator}'s built-in targeter. This approach does not rely on pre-calculated values. Instead, we defined the mission segments (an initial state, two manoeuvres, and a transfer propagate) and set specific orbital parameters as goals. The targeter was configured to solve for the $\Delta v$ of the first burn required to achieve a transfer orbit with an \emph{Apogee Altitude} of \SI{96792}{\kilo\metre}. It was then configured to solve for the second burn's $\Delta v$ to achieve a final \emph{Eccentricity} of 0. This method, which actively accounts for the full \texttt{HPOP} force model during its calculations, was successful, as shown in Figure~\ref{fig:hohmann_success}.
+
+The numerical results from this successful simulation (see \texttt{Hohmann\_Sat\_Maneuver\_Summary.csv}) provide the answers to the mission planning questions:
+\begin{enumerate}
+    \item The total $\Delta V$ for the Hohmann transfer was $\SI{4011.38}{\metre\per\second}$ ($\SI{4.011}{\kilo\metre\per\second}$), composed of a first burn of $\SI{2811.38}{\metre\per\second}$ and a second burn of $\SI{1200.00}{\metre\per\second}$.
+    \item The Hohmann transfer (the time between the two burns) took 17 hours, 50 minutes, and 26 seconds.
+\end{enumerate}
+Interestingly, the total $\Delta V$ computed by the high-fidelity targeter is approximately $\SI{65}{\metre\per\second}$ \emph{less} than the value from the simplified two-body calculation, highlighting the significant impact of perturbations on mission design.
+
+
+\begin{figure}[h!]
+    \centering
+    
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Failed_Hohmann_Transfer.png.bmp}
+        \caption{The 'hard-coded' transfer. The transfer ellipse (purple) misses the target orbit (yellow) due to unmodelled perturbations.}
+        \label{fig:hohmann_failed}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Hohmann_Transfer.png.bmp} 
+        \caption{The successful targeter-based transfer. The initial (blue), transfer (purple), and final (yellow) orbits are perfectly tangential.}
+        \label{fig:hohmann_success}
+    \end{subfigure}
+    
+    \caption{Comparison of STK \texttt{Astrogator} implementation methods for the LEO to HEO Hohmann transfer.}
+    \label{fig:hohmann_comparison}
+\end{figure}
+
 \subsection{Bielliptic Transfer}
 
 \subsection{Inclination Change}
