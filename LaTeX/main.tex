@@ -54,7 +54,7 @@ Figure~\ref{fig:meo_solar} confirms the expected solar illumination pattern for 
 
 This experiment analyses a satellite in a Highly Elliptical Orbit (HEO). HEOs are a class of orbit characterised by a low-altitude perigee and a very high-altitude apogee, resulting in a high eccentricity. For this study, we specifically model a \emph{Molniya} orbit, a semi-synchronous HEO originally conceived by the Soviet Union for high-latitude communications. A Molniya orbit has a unique set of orbital parameters: it possesses a high eccentricity, an orbital period of approximately 12 hours (half a sidereal day), and a very specific inclination of $i \approx 63.4^\circ$. This inclination is known as the \emph{critical inclination}, and its selection is deliberate: at this angle, the strong perturbations on the argument of perigee caused by the Earth's oblateness (the J2 effect) are nullified. This prevents the orbit's perigee from rotating over time. By setting the argument of perigee to $\omega = 270^\circ$, the orbit's apogee (its highest point) is fixed over the Northern Hemisphere. The satellite then spends the vast majority of its orbital period--upwards of 11 hours--hovering over high-latitude regions. During the cold war, this provided an ideal solution for soviet engineers to perform spying and surveillance operations over the United States. It is also helpful in the modern day for countries like Russia or Canada, which are poorly served by equatorial geostationary satellites. Satellites in Molniya orbits experience a varying perturbative environment: they are heavily influenced by lunisolar gravity at their high apogee, whilst also passing through the dense Van Allen radiation belts at perigee. Atmospheric drag, however, is only a significant factor during the brief passage through this low perigee, but can contribute towards causing a precession of the line of nodes.
 
-Our experiment considered a HEO satellite with two sets of orbital paramteters: the first is an STK-default Molniya orbit, and the second is at \SI{40,000}{\kilo\metre} apogee altitude, \SI{1,000}{\kilo\metre} perigee altitude, and \SI{40}{\degree} inclination. The two sets of orbital elements are summarised in Table~\ref{tab:heo_params}.
+Our experiment considered a HEO satellite with two sets of orbital paramteters: the first is an STK-default Molniya orbit, and the second is at \SI{40000}{\kilo\metre} apogee altitude, \SI{1000}{\kilo\metre} perigee altitude, and \SI{40}{\degree} inclination. The two sets of orbital elements are summarised in Table~\ref{tab:heo_params}.
 
 \begin{table}[h!]
 \centering
@@ -99,23 +99,83 @@ Our experiment considered both a GEO and GSO set of orbital parameters, with a l
         \label{fig:san_diego_facility}
     \end{subfigure}
     
-    \label{fig:geo_and_facility}
 \end{figure}
 
-Using the facility from Figure~\ref{fig:geo_and_facility}, we were able to compute the access to all four satellites (LEO, MEO, HEO and GEO) for the entire duration of the mission.
+Using the facility from Figure~\ref{fig:san_diego_facility}, we were able to compute the access to all four satellites (LEO, MEO, HEO and GEO) for the entire duration of the mission. The results are plotted in Figure~\ref{fig:access_times}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{LaTeX/Figures/Facility-Facility_San_Diego-To-Satellite-GEO_Satellite_Access.png}
+    \caption{Access times for the San Diego Facility to all four satellites. From top to bottom: MEO satellite (blue), LEO satellite (magenta), HEO satellite (green), GSO satellite (red).}
+    \label{fig:access_times}
+\end{figure}
+
+As expected, there is a continuous line of sight between the GSO satellite and the facility (ad the facility is in this satellite's field of view, which stays roughly fixed throughout the mission). The HEO satellite is able to communicate with the facility for about half of its orbital period, whereas the window is reduced to one third of the period for the MEO satellite. The LEO satellite receives the least coverage, passing in range of the station for brief windows (lasting a handful of minutes) before quickly disappearing behind the horizon. There are two windows of simultaneous access to all four satellites. A snapshot of the ground-track view for first of these two windows, which begins at 13:57:27.181,3 UTC on 1 Nov 2019, is displayed in Figure~\ref{fig:snapshot_access}. This figure also shows the effective ground tracks for one orbital period (whose duration is different for different satellites) of the four satellites. These appear as described in the previous sections. We can see dashed lines emanating from the Facility, which connect it to each of the satellites. Confirming the access to a line of sight are four boxes which surround each of the satellites' icons.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{LaTeX/Figures/Facility_Access.png}
-    \caption{.}
+    \caption{Snapshot of 2D STK view at the moment of simultaneous access between the San Diego facility and the four satellites. The satellite ground tracks are coloured according to: LEO satellite (purple), MEO satellite (red), HEO satellite (white), GSO satellite (orange), plus Facility (blue).}
     \label{fig:snapshot_access}
 \end{figure}
 
+\newpage
 \subsection{Illustrating The Drag Paradox}
+
+A final topic of interest, highly relevant to the LEO decay analysed in Section~\ref{subsec:LEO}, is the \emph{atmospheric drag paradox}. This is a counter-intuitive phenomenon in orbital mechanics where a satellite subjected to a continuous braking force---in this case, atmospheric drag---will, as a direct consequence, experience an increase in its instantaneous orbital velocity. This effect is a fundamental result of the laws governing orbital energy. Drag, a non-conservative force, removes total orbital energy from the system. As the total energy of a bound orbit is defined by its semi-major axis ($E = -\frac{\mu m}{2a}$), this loss of energy mandates a decrease in the semi-major axis, causing the orbit to decay. From the \emph{vis-viva} equation, $v^2 = \mu (\frac{2}{r} - \frac{1}{a})$, a decrease in both the semi-major axis ($a$) and radius ($r$) necessitates a corresponding increase in the orbital velocity ($v$). Therefore, the satellite is paradoxically forced to accelerate as it spirals downwards into a lower, and consequently faster, orbit.
+
+To illustrate this paradox, our experiment involved two satellites initialised in identical, circular \SI{300}{\kilo\metre} LEOs. The first satellite, serving as a control, was propagated using the default \texttt{J4Perturbation} propagator, which does not model atmospheric drag. The second satellite was propagated using HPOP, with identical settings except for the inclusion of a significant drag force, which was modelled by setting the Area-to-Mass ratio to a high value of \SI{1.0}{\metre\squared\per\kilogram}. The scenario was propagated for a 24-hour period beginning on 00:00:00.0000 UTC on 20 September 2003 (my birth date :) ).
+
+The results of the simulation provided a clear visualisation of the paradox. When animating the scenario, the HPOP satellite with high drag was observed to slightly "pull ahead" of the control satellite, confirming its constantly increasing instantaneous orbital velocity, as expected. Figure~\ref{fig:drg_radius} plots the orbital radius, showing the control satellite (green) maintaining its orbital radius steady at the initial value, while the \texttt{HPOP} satellite (black) decays rapidly, re-entering the atmosphere in less than four and a half hours. This time, there is only one ecliptic oscillation in the orbital decay (see Section~\ref{subsec:LEO} for a full discussion) as the satellite plunges down to Earth's surface after one full orbital period.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{LaTeX/Figures/Drag_Paradox_Radius.png}
+    \caption{Plot of Orbital Radius (\si{\kilo\metre}) over time for the \texttt{HPOP} satellite (black) and \texttt{J4Propagation} satellite (green).}
+    \label{fig:drg_radius}
+\end{figure}
+
+Figure~\ref{fig:drg_orbital_elements} provides a deeper insight by plotting the classical orbital elements. It shows the semi-major axis (red) of the drag-perturbed satellite decreasing, a
+direct consequence of energy loss. This decrease in $a$, as per the \emph{vis-viva} equation, directly results in a higher average orbital velocity. This confirms the paradox: the satellite under the "braking" force of drag does indeed accelerate as its orbit shrinks.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{LaTeX/Figures/Drag_Paradox_Orbital_Elements.png}
+    \caption{Comparison of the J200 Classical Orbital Elements for the \texttt{HPOP} satellite and the \texttt{J4Propagation} satellite (various colours).}
+    \label{fig:drg_orbital_elements}
+\end{figure}
 
 \section{Orbit Transfers}
 
+This section presents numerical experiments involving orbit transfers. For this section, we adopted the \texttt{Astrogator} STK propagator, which models orbits that can leave the gravitational sphere of influence of a given celestial body.
+
 \subsection{Hohmann Transfer}
+
+A common and fundamental orbital manoeuvre is the \emph{Hohmann transfer}, a method for changing a satellite's orbital altitude. It is a classic two-impulse manoeuvre designed to move a spacecraft between two co-planar, circular orbits in the most fuel-efficient manner possible (in terms of total $\Delta V$). The transfer is achieved via a single elliptical orbit, often called the ``transfer orbit", which is tangential to both the initial and final circular orbits. The first propulsive burn is a prograde impulse (in the direction of velocity) applied at the initial, lower orbit. This burn increases the satellite's energy and raises its apoapsis to match the altitude of the final, higher orbit. Upon reaching this apoapsis, a second prograde burn is executed to circularise the orbit at the new, higher altitude, completing the transfer.
+
+\subsubsection{Theoretical Calculation}
+
+Before implementing the manoeuvre using \texttt{Astrogator}, the theoretical values for the transfer were calculated analytically. Given an initial altitude $h_1 = \SI{500}{\kilo\metre}$ and a final altitude $h_2 = \SI{96792}{\kilo\metre}$, and using Earth's mean radius $R_E = \SI{6378}{\kilo\metre}$, the initial and final orbital radii are $r_1 = \SI{6878}{\kilo\metre}$ and $r_2 = \SI{103170}{\kilo\metre}$, respectively.
+
+The velocities in the initial ($v_{\circ,1}$) and final ($v_{\circ,2}$) circular orbits are found using $v_{\circ} = \sqrt{\mu/r}$. The semi-major axis of the elliptical transfer orbit is $a_t = (r_1 + r_2)/2$. The velocities at the perigee ($v_{t,1}$) and apogee ($v_{t,2}$) of this transfer orbit are found using the \emph{vis-viva} equation, $v^2 = \mu (\frac{2}{r} - \frac{1}{a_t})$.
+
+The two required impulses, $\Delta v_1$ and $\Delta v_2$, are then:
+\begin{align*}
+\Delta v_1 &= v_{t,1} - v_{\circ,1} = \sqrt{\mu \left(\frac{2}{r_1} - \frac{1}{a_t}\right)} - \sqrt{\frac{\mu}{r_1}} \\
+\Delta v_2 &= v_{\circ,2} - v_{t,2} = \sqrt{\frac{\mu}{r_2}} - \sqrt{\mu \left(\frac{2}{r_2} - \frac{1}{a_t}\right)}
+\end{align*}
+The time of flight is half the period of the transfer orbit:
+$$ \Delta t = \pi \sqrt{\frac{a_t^3}{\mu}} $$
+
+Using $\mu \approx \SI{3.98e5}{\kilo\metre\cubed\per\second\squared}$ (as established in Section~\ref{subsec:LEO}) and the radii above, the intermediate calculations yield $a_t = \SI{55024}{\kilo\metre}$, $v_{\circ,1} \approx \SI{7.608}{\kilo\metre\per\second}$, $v_{\circ,2} \approx \SI{1.964}{\kilo\metre\per\second}$, $v_{t,1} \approx \SI{10.416}{\kilo\metre\per\second}$, and $v_{t,2} \approx \SI{0.696}{\kilo\metre\per\second}$.
+
+This results in the following theoretical mission requirements:
+\begin{itemize}
+    \item First Burn ($\Delta v_1$): $\approx \SI{2.808}{\kilo\metre\per\second}$
+    \item Second Burn ($\Delta v_2$): $\approx \SI{1.268}{\kilo\metre\per\second}$
+    \item Total $\Delta V$: $\approx \SI{4.076}{\kilo\metre\per\second}$
+    \item Transfer Time: $\Delta t \approx \SI{64275}{\second}$ (or $\approx \SI{17.85}{\hour}$)
+\end{itemize}
 
 \subsection{Bielliptic Transfer}
 
