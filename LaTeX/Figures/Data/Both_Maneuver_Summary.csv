@@ -1,0 +1,23 @@
+"Bielliptic_Sat - Maneuver Number","Bielliptic_Sat - Segment","Bielliptic_Sat - Start Time (UTCG)","Bielliptic_Sat - Stop Time (UTCG)","Bielliptic_Sat - Duration (sec)","Bielliptic_Sat - Est./Act. Finite Burn Duration (sec)","Bielliptic_Sat - Delta V (m/sec)","Bielliptic_Sat - Fuel Used (kg)"
+1,"Start_Transfer.DV1",2 Aug 2025 14:13:20.000,2 Aug 2025 14:13:20.000,0.000,31839.712,2978.175948,5411.245
+2,"Intermediate_Transfer.DV2",4 Aug 2025 14:20:09.699,4 Aug 2025 14:20:09.699,0.000,4241.127,781.798757,720.791
+3,"Finish_Transfer.DV3",8 Aug 2025 02:29:03.700,8 Aug 2025 02:29:03.700,0.000,1368.161,304.076214,232.523
+
+Statistics
+"Total Bielliptic_Sat - Duration",,"",,,0.000,,,
+"Total Bielliptic_Sat - Est./Act. Finite Burn Duration",,"",,,,37449.000,,
+"Total Bielliptic_Sat - Delta V",,"",,,,,4064.050918,
+"Total Bielliptic_Sat - Fuel Used",,"",,,,,,6364.559
+
+
+"Hohmann_Sat - Maneuver Number","Hohmann_Sat - Segment","Hohmann_Sat - Start Time (UTCG)","Hohmann_Sat - Stop Time (UTCG)","Hohmann_Sat - Duration (sec)","Hohmann_Sat - Est./Act. Finite Burn Duration (sec)","Hohmann_Sat - Delta V (m/sec)","Hohmann_Sat - Fuel Used (kg)"
+1,"Start_Transfer.DV1",2 Aug 2025 14:13:20.000,2 Aug 2025 14:13:20.000,0.000,30779.552,2811.378824,5231.068
+2,"Finish_Transfer.DV2",3 Aug 2025 08:03:45.998,3 Aug 2025 08:03:45.998,0.000,6745.956,1270.640758,1146.493
+
+Statistics
+"Total Hohmann_Sat - Duration",,"",,,0.000,,,
+"Total Hohmann_Sat - Est./Act. Finite Burn Duration",,"",,,,37525.508,,
+"Total Hohmann_Sat - Delta V",,"",,,,,4082.019582,
+"Total Hohmann_Sat - Fuel Used",,"",,,,,,6377.562
+
+

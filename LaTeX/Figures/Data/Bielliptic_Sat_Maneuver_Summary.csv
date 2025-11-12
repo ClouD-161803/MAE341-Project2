@@ -1,0 +1,12 @@
+"Maneuver Number","Segment","Start Time (UTCG)","Stop Time (UTCG)","Duration (sec)","Est./Act. Finite Burn Duration (sec)","Delta V (m/sec)","Fuel Used (kg)"
+1,"Start_Transfer.DV1",1 Aug 2025 16:53:20.000,1 Aug 2025 16:53:20.000,0.000,31839.712,2978.175948,5411.245
+2,"Intermediate_Transfer.DV2",3 Aug 2025 17:00:09.699,3 Aug 2025 17:00:09.699,0.000,4241.127,781.798756,720.791
+3,"Finish_Transfer.DV3",7 Aug 2025 05:09:03.699,7 Aug 2025 05:09:03.699,0.000,1216.974,268.888010,206.828
+
+Statistics
+"Total Duration",,"",,,0.000,,,
+"Total Est./Act. Finite Burn Duration",,"",,,,37297.813,,
+"Total Delta V",,"",,,,,4028.862714,
+"Total Fuel Used",,"",,,,,,6338.864
+
+
