@@ -151,15 +151,13 @@ This section presents numerical experiments involving orbit transfers. For this 
 
 \subsection{Hohmann Transfer}
 
-A common and fundamental orbital manoeuvre is the \emph{Hohmann transfer}, a method for changing a satellite's orbital altitude. It is a classic two-impulse manoeuvre designed to move a spacecraft between two co-planar, circular orbits in the most fuel-efficient manner possible (in terms of total $\Delta V$). The transfer is achieved via a single elliptical orbit, often called the ``transfer orbit", which is tangential to both the initial and final circular orbits. The first propulsive burn is a prograde impulse (in the direction of velocity) applied at the initial, lower orbit. This burn increases the satellite's energy and raises its apoapsis to match the altitude of the final, higher orbit. Upon reaching this apoapsis, a second prograde burn is executed to circularise the orbit at the new, higher altitude, completing the transfer.
+A common and fundamental orbital manoeuvre is the \emph{Hohmann transfer}, a method for changing a satellite's orbital altitude. It is a classic two-impulse manoeuvre designed to move a spacecraft between two co-planar, circular orbits in the most fuel-efficient manner possible (in terms of total $\Delta V$). The transfer is achieved via a single elliptical orbit, often called the transfer orbit, which is tangential to both the initial and final circular orbits. The first propulsive burn is a prograde impulse (in the direction of velocity) applied at the initial, lower orbit. This burn increases the satellite's energy and raises its apoapsis to match the altitude of the final, higher orbit. Upon reaching this apoapsis, a second prograde burn is executed to circularise the orbit at the new, higher altitude, completing the transfer.
 
 \subsubsection{Theoretical Calculation}
 
 Before implementing the manoeuvre using \texttt{Astrogator}, the theoretical values for the transfer were calculated analytically. Given an initial altitude $h_1 = \SI{500}{\kilo\metre}$ and a final altitude $h_2 = \SI{96792}{\kilo\metre}$, and using Earth's mean radius $R_E = \SI{6378}{\kilo\metre}$, the initial and final orbital radii are $r_1 = \SI{6878}{\kilo\metre}$ and $r_2 = \SI{103170}{\kilo\metre}$, respectively.
 
-The velocities in the initial ($v_{\circ,1}$) and final ($v_{\circ,2}$) circular orbits are found using $v_{\circ} = \sqrt{\mu/r}$. The semi-major axis of the elliptical transfer orbit is $a_t = (r_1 + r_2)/2$. The velocities at the perigee ($v_{t,1}$) and apogee ($v_{t,2}$) of this transfer orbit are found using the \emph{vis-viva} equation, $v^2 = \mu (\frac{2}{r} - \frac{1}{a_t})$.
-
-The two required impulses, $\Delta v_1$ and $\Delta v_2$, are then:
+The velocities in the initial ($v_{\circ,1}$) and final ($v_{\circ,2}$) circular orbits are found using $v_{\circ} = \sqrt{\mu/r}$. The semi-major axis of the elliptical transfer orbit is $a_t = (r_1 + r_2)/2$. The velocities at the perigee ($v_{t,1}$) and apogee ($v_{t,2}$) of this transfer orbit are found using the \emph{vis-viva} equation, $v^2 = \mu (\frac{2}{r} - \frac{1}{a_t})$. The two required impulses, $\Delta v_1$ and $\Delta v_2$, are then:
 \begin{align*}
 \Delta v_1 &= v_{t,1} - v_{\circ,1} = \sqrt{\mu \left(\frac{2}{r_1} - \frac{1}{a_t}\right)} - \sqrt{\frac{\mu}{r_1}} \\
 \Delta v_2 &= v_{\circ,2} - v_{t,2} = \sqrt{\frac{\mu}{r_2}} - \sqrt{\mu \left(\frac{2}{r_2} - \frac{1}{a_t}\right)}
@@ -167,9 +165,7 @@ The two required impulses, $\Delta v_1$ and $\Delta v_2$, are then:
 The time of flight is half the period of the transfer orbit:
 $$ \Delta t = \pi \sqrt{\frac{a_t^3}{\mu}} $$
 
-Using $\mu \approx \SI{3.98e5}{\kilo\metre\cubed\per\second\squared}$ (as established in Section~\ref{subsec:LEO}) and the radii above, the intermediate calculations yield $a_t = \SI{55024}{\kilo\metre}$, $v_{\circ,1} \approx \SI{7.608}{\kilo\metre\per\second}$, $v_{\circ,2} \approx \SI{1.964}{\kilo\metre\per\second}$, $v_{t,1} \approx \SI{10.416}{\kilo\metre\per\second}$, and $v_{t,2} \approx \SI{0.696}{\kilo\metre\per\second}$.
-
-This results in the following theoretical mission requirements:
+Using $\mu \approx \SI{3.98e5}{\kilo\metre\cubed\per\second\squared}$ (as established in Section~\ref{subsec:LEO}) and the radii above, the intermediate calculations yield $a_t = \SI{55024}{\kilo\metre}$, $v_{\circ,1} \approx \SI{7.608}{\kilo\metre\per\second}$, $v_{\circ,2} \approx \SI{1.964}{\kilo\metre\per\second}$, $v_{t,1} \approx \SI{10.416}{\kilo\metre\per\second}$, and $v_{t,2} \approx \SI{0.696}{\kilo\metre\per\second}$. This results in the following theoretical mission requirements:
 \begin{itemize}
     \item First Burn ($\Delta v_1$): $\approx \SI{2.808}{\kilo\metre\per\second}$
     \item Second Burn ($\Delta v_2$): $\approx \SI{1.268}{\kilo\metre\per\second}$
@@ -177,41 +173,98 @@ This results in the following theoretical mission requirements:
     \item Transfer Time: $\Delta t \approx \SI{64275}{\second}$ (or $\approx \SI{17.85}{\hour}$)
 \end{itemize}
 
+\subsubsection{STK Implementation}
+
 We attempted two methods to implement this manoeuvre in \texttt{Astrogator}. The first method involved ``hard-coding" the impulsive manoeuvres using the exact \SI{2.808}{\kilo\metre\per\second} and \SI{1.268}{\kilo\metre\per\second} $\Delta v$ values derived from the theoretical two-body calculation. This approach proved unsuccessful. The theoretical values do not account for the perturbative forces (e.g., Earth's oblateness, lunisolar gravity) included in the STK propagator. These perturbations, though small, compound over the long \SI{17.8}{\hour} transfer, causing the satellite to miss its target altitude and velocity, as illustrated in Figure~\ref{fig:hohmann_failed}.
 % The manoeuvre summary (\texttt{Failed\_Hohmann\_Sat\_Maneuver\_Summary.csv}) for this attempt confirms the total $\Delta V$ was exactly the theoretical \SI{4076}{\metre\per\second}.
 
-A second, more robust attempt was made using \texttt{Astrogator}'s built-in targeter. This approach does not rely on pre-calculated values. Instead, we defined the mission segments (an initial state, two manoeuvres, and a transfer propagate) and set specific orbital parameters as goals. The targeter was configured to solve for the $\Delta v$ of the first burn required to achieve a transfer orbit with an \emph{Apogee Altitude} of \SI{96792}{\kilo\metre}. It was then configured to solve for the second burn's $\Delta v$ to achieve a final \emph{Eccentricity} of 0. This method, which actively accounts for the full \texttt{HPOP} force model during its calculations, was successful, as shown in Figure~\ref{fig:hohmann_success}.
-
-The numerical results from this successful simulation (see \texttt{Hohmann\_Sat\_Maneuver\_Summary.csv}) provide the answers to the mission planning questions:
-\begin{enumerate}
-    \item The total $\Delta V$ for the Hohmann transfer was $\SI{4011.38}{\metre\per\second}$ ($\SI{4.011}{\kilo\metre\per\second}$), composed of a first burn of $\SI{2811.38}{\metre\per\second}$ and a second burn of $\SI{1200.00}{\metre\per\second}$.
-    \item The Hohmann transfer (the time between the two burns) took 17 hours, 50 minutes, and 26 seconds.
-\end{enumerate}
-Interestingly, the total $\Delta V$ computed by the high-fidelity targeter is approximately $\SI{65}{\metre\per\second}$ \emph{less} than the value from the simplified two-body calculation, highlighting the significant impact of perturbations on mission design.
-
+A second, more robust attempt was made using \texttt{Astrogator}'s built-in targeter. This approach does not rely on pre-calculated values. Instead, we defined the mission segments (an initial state, two manoeuvres, and a transfer propagate) and set specific orbital parameters as goals. The targeter was configured to solve for the $\Delta v$ of the first burn required to achieve a transfer orbit with an apogee altitude of \SI{96792}{\kilo\metre}. It was then configured to solve for the second burn's $\Delta v$ to achieve a final eccentricity of 0. This method, which actively accounts for the full \texttt{HPOP} force model during its calculations, was successful, as shown in Figure~\ref{fig:hohmann_success}.
 
 \begin{figure}[h!]
     \centering
     
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{LaTeX/Figures/Failed_Hohmann_Transfer.png.bmp}
-        \caption{The 'hard-coded' transfer. The transfer ellipse (purple) misses the target orbit (yellow) due to unmodelled perturbations.}
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Failed_Hohmann_Transfer.png.png}
+        \caption{The 'hard-coded' transfer. The target orbit (red) is not complete. This is likely due to a mismatch between calculated transfer real transfer times.}
         \label{fig:hohmann_failed}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{LaTeX/Figures/Hohmann_Transfer.png.bmp} 
-        \caption{The successful targeter-based transfer. The initial (blue), transfer (purple), and final (yellow) orbits are perfectly tangential.}
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Hohmann_Transfer.png.png} 
+        \caption{The successful targeter-based transfer. The initial (green), transfer (cyan), and final (red) orbits are perfectly tangential.}
         \label{fig:hohmann_success}
     \end{subfigure}
     
-    \caption{Comparison of STK \texttt{Astrogator} implementation methods for the LEO to HEO Hohmann transfer.}
-    \label{fig:hohmann_comparison}
 \end{figure}
 
+The numerical results from this successful simulation provide the answers to the mission planning questions. The Hohmann transfer, defined as the time between the two burns, took 17 hours, 50 minutes, and 26 seconds to complete. The total $\Delta V$ required for this manoeuvre was \textbf{$\SI{4011.38}{\metre\per\second}$ ($\SI{4.011}{\kilo\metre\per\second}$)}, which was composed of an initial burn of $\SI{2811.38}{\metre\per\second}$ and a second, circularisation burn of $\SI{1200.00}{\metre\per\second}$. Interestingly, the total $\Delta V$ computed by the high-fidelity targeter is approximately $\SI{65}{\metre\per\second}$ \emph{less} than the value from the simplified two-body calculation. The theoretical calculation assumes a perfect ``two-body" system, considering only the satellite and a spherically uniform Earth. The \texttt{HPOP} simulation, in contrast, includes the full perturbative environment. Over the long \SI{17.8}{\hour} coast phase to an apogee of nearly \SI{100000}{\kilo\metre}, the satellite travels far into Earth's sphere of influence where third-body gravitational forces are no longer negligible. The dominant perturbations in this regime are from the Sun and the Moon (lunisolar gravity). These third bodies exert their own gravitational pull on the satellite, effectively adding or removing small amounts of energy from the orbit. In this specific simulation, the $\Delta V$ was \emph{lower}, which implies that the geometry of the transfer relative to the Sun and Moon was favourable. The combined lunisolar gravity provided a small, beneficial "gravity assist" to the satellite, reducing the propulsive effort required from the engine to achieve the target orbit. This highlights a very important concept in mission design: for high-energy transfers, the timing of the manoeuvre is critical, as a different launch date could place the Sun and Moon in a disadvantageous position, potentially \emph{increasing} the total $\Delta V$ required.
+
+
 \subsection{Bielliptic Transfer}
+
+The \emph{bielliptic transfer} is an alternative method, often contrasted with the Hohmann, for moving a spacecraft between two co-planar, circular orbits. Unlike the Hohmann's two-burn sequence, the bi-elliptic transfer is a three-impulse manoeuvre. The first prograde burn propels the satellite from its initial circular orbit into a highly elliptical transfer orbit, with an apogee radius ($r_b$) deliberately chosen to be much larger than the final target radius ($r_2$). At this distant apogee, a second prograde burn is applied; this impulse raises the perigee of the transfer orbit from $r_1$ to $r_2$. The satellite then coasts back inwards to this new perigee (at radius $r_2$), where a third, retrograde impulse is required to slow the spacecraft and circularise it into the final target orbit. While this method invariably results in a significantly longer transfer time, it can be more fuel-efficient (requiring less total $\Delta V$) than a Hohmann transfer, particularly when the ratio of the final to initial orbital radius is very large ($r_2/r_1 > \sim 11.94$).
+
+\subsubsection{Theoretical Calculation}
+
+Before implementing the manoeuvre in \texttt{Astrogator}, the theoretical values for the bi-elliptic transfer were calculated analytically. This plan uses the same initial ($r_1 = \SI{6878}{\kilo\metre}$) and final ($r_2 = \SI{103170}{\kilo\metre}$) circular orbits, but adds an intermediate apogee radius $r_b$ set to twice the final radius, $r_b = 2 \times r_2 = \SI{206340}{\kilo\metre}$.
+
+This transfer requires two separate transfer ellipses. The first, $TE_1$, has a semi-major axis $a_{t1} = (r_1 + r_b)/2$. The second, $TE_2$, has a semi-major axis $a_{t2} = (r_2 + r_b)/2$. The velocities in the initial ($v_{\circ,1}$) and final ($v_{\circ,2}$) circular orbits are calculated as before. The \emph{vis-viva} equation, $v^2 = \mu (\frac{2}{r} - \frac{1}{a})$, is used to find the velocities at the perigee and apogee of both transfer ellipses.
+The three required impulses, $\Delta v_1$, $\Delta v_2$, and $\Delta v_3$, are then:
+\begin{align*}
+\Delta v_1 &= v_{t1,p} - v_{\circ,1} = \sqrt{\mu \left(\frac{2}{r_1} - \frac{1}{a_{t1}}\right)} - \sqrt{\frac{\mu}{r_1}} \\
+\Delta v_2 &= v_{t2,a} - v_{t1,a} = \sqrt{\mu \left(\frac{2}{r_b} - \frac{1}{a_{t2}}\right)} - \sqrt{\mu \left(\frac{2}{r_b} - \frac{1}{a_{t1}}\right)} \\
+\Delta v_3 &= v_{\circ,2} - v_{t2,p} = \sqrt{\frac{\mu}{r_2}} - \sqrt{\mu \left(\frac{2}{r_2} - \frac{1}{a_{t2}}\right)}
+\end{align*}
+The total time of flight is the sum of half the periods of each transfer orbit:
+$$ \Delta t = \pi \sqrt{\frac{a_{t1}^3}{\mu}} + \pi \sqrt{\frac{a_{t2}^3}{\mu}} $$
+
+Using $\mu \approx \SI{3.98e5}{\kilo\metre\cubed\per\second\squared}$ and the radii above, the intermediate calculations yield $a_{t1} \approx \SI{106609}{\kilo\metre}$ and $a_{t2} \approx \SI{154755}{\kilo\metre}$. This results in the following theoretical mission requirements:
+\begin{itemize}
+    \item First Burn ($\Delta v_1$): $\approx \SI{2.970}{\kilo\metre\per\second}$
+    \item Second Burn ($\Delta v_2$): $\approx \SI{0.783}{\kilo\metre\per\second}$
+    \item Third Burn ($\Delta v_3$): $\approx \SI{-0.304}{\kilo\metre\per\second}$ (retrograde)
+    \item Total $\Delta V$ (sum of magnitudes): $\approx \SI{4.057}{\kilo\metre\per\second}$
+    \item Transfer Time: $\Delta t \approx \SI{1506484}{\second}$ (or $\approx \SI{418.5}{\hour}$)
+\end{itemize}
+Theoretically, this confirms that for this $r_2/r_1 \approx 15$ ratio, the bi-elliptic transfer is slightly more fuel-efficient than the Hohmann transfer (saving $\approx \SI{19}{\metre\per\second}$), but at the cost of a dramatically larger transfer time (approximately 17.4 days versus 17.8 hours).
+
+\subsubsection{STK Implementation}
+
+Learning from the previous experiment, the bi-elliptic transfer was implemented directly using \texttt{Astrogator}'s built-in targeter, forgoing any attempt to use the pre-calculated theoretical values. The manoeuvre was constructed as a three-burn sequence using the \texttt{HPOP} propagator. The first target sequence solved for a burn to achieve an apogee altitude of $\SI{206340}{\kilo\metre}$ (twice the final radius), followed by a propagation segment to stop at this apogee. The second burn, executed at this distant apogee, targeted a perigee altitude of $\SI{96792}{\kilo\metre}$, followed by a long coast back inwards to this new perigee. The final target sequence solved for the third burn, targeting an eccentricity of 0 to circularise the orbit. This successful three-burn sequence is visualised in Figure~\ref{fig:bielliptic_transfer}.
+
+\begin{figure}[h!]
+    \centering
+    
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Bielliptic_Transfer.png}
+        \caption{The successful targeter-based bi-elliptic transfer. The initial (blue), first transfer (purple), second transfer (green), and final (yellow) orbits are shown.}
+        \label{fig:bielliptic_transfer}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        % Leave this blank or add a placeholder image
+        % \includegraphics[width=\textwidth]{LaTeX/Figures/Inclination_Change.png} 
+        \vspace{5cm} % Placeholder vertical space
+        \caption{Placeholder for the inclination change manoeuvre.}
+        \label{fig:inclination_change}
+    \end{subfigure}
+
+\end{figure}
+
+The total transfer, from the first burn to the third, took 5 days, 12 hours, 15 minutes, and 44 seconds. The total $\Delta V$ required for this manoeuvre was $\SI{4028.86}{\metre\per\second}$ ($\SI{4.029}{\kilo\metre\per\second}$), composed of a first burn of $\SI{2978.18}{\metre\per\second}$, a second burn of $\SI{781.80}{\metre\per\second}$, and a third burn of $\SI{-268.89}{\metre\per\second}$ (retrograde). Contrast these against the Hohmann transfer:
+
+\begin{itemize}
+    \item Hohmann Transfer: $\SI{4.011}{\kilo\metre\per\second}$ and \SI{17.8}{\hour} total time.
+    \item Bielliptic Transfer: $\SI{4.029}{\kilo\metre\per\second}$ and $\SI{132.26}{\hour} \approx \SI{5.5}{\day}$ total time.
+\end{itemize}
+
+Comparing these results with those of the Hohmann transfer, we concluded that, for this specific problem, the bi-elliptic transfer is unambiguously inferior. The theoretical $\Delta V$ saving ($\approx \SI{19}{\metre\per\second}$) not only evaporated but was reversed in the high-fidelity simulation, resulting in a manoeuvre that cost $\approx \SI{18}{\metre\per\second}$ \emph{more} than the Hohmann (likely due to unfavourable lunisolar perturbations for the bielliptic transfer, and favourable ones for the Hohmann transfer). Furthermore, this small $\Delta V$ difference is dwarfed by the prohibitive time cost, which increased from less than a day to nearly a week. As a mission planner, the Hohmann transfer is the clear and obvious choice. The bielliptic transfer's theoretical advantage only applies at extreme $r_2/r_1$ ratios (and often with an even larger $r_b$), but this experiment shows that in a real, perturbed environment, the enormous time penalty exposes the satellite to mission-altering disturbances, negating any minor fuel savings. In addition, we note that the perturbation effects are harder to predict and exploit in advance using the simplified setting we adopted. For high-stakes missions, where savings can be on the order of millions of dollars, engineers exploit the effects of perturbations to their advantage to maximise fuel/time savings.
+
+
 
 \subsection{Inclination Change}
 
