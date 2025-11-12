@@ -21,9 +21,9 @@ This document reports a study carried out on the Ansys software package Systems 
 
 This section presents numerical experiments involving satellites in Earth-bound orbits. In general, STK is principally used to simulate (or propagate) orbital coordinates (elements) for satellites around celestial bodies. The simulation is carried out numerically via a \emph{propagator}, which finds solutions to the (differential) governing equations through discretising the domains and advancing in small steps. The governing equations used are sophisticated and often involve several additional influences beyond the standard perturbed ``two-body" problem discussed in class. For this section, we adopted the High Precision Orbit Propagator (HPOP) within the STK satellite objects. Major perturbations--which for an Earth-orbiting satellite include the non-sphericity of the Earth, lunisolar gravitational effects, atmospheric drag, and solar radiation pressure (SRP)--are all modelled with high fidelity by this propagator, which also includes Earth-motion effects.
 
-\subsection{Low Earth Orbit Vehicle}
+\subsection{Low Earth Orbit Vehicle} \label{subsec:LEO}
 
-The first experiment investigated the effects of varying the drag coefficient $C_d$ for satellites in circular, low-earth orbits (LEO). LEOs are defined as any orbit with an altitude above Earth's surface lower than \SI{2000}{\kilo\metre}, and are typically used for remote sensing and constellation communications. Since these orbits are closest to the Earth, they are the most influenced by atmospheric drag. The influence on a body with cross-sectional area $A_d$ moving at speed $U_\infty$ through a fluid with density $\rho$ is mathematically defined by the drag force $F_d$ (measured in Newtons) as $F_d := \frac{1}{2} \rho C_d  A_d U_\infty^2$. The drag coefficient $C_d = \frac{2F_d}{\rho A_d U_\infty ^2}$ measured the percentage of the total dynamic head $ \frac{1}{2} \rho U_\infty^2$ is converted to drag force experienced by the body, per unit area. It is a measure of how ``streamlined" the geometry of body is, and its numerical value typically ranges from $2.0$ to $2.5$ for LEO satellites\footnote{At LEO altitudes, the air around the satellite is in its free-molecular regime, thus it is possible for the value of drag coefficient to exceed 1.}.
+The first experiment investigated the effects of varying the drag coefficient $C_d$ for satellites in circular, low-earth orbits (LEO). LEOs are defined as any orbit with a mean altitude above Earth's surface lower than \SI{2000}{\kilo\metre}, and are typically used for remote sensing and constellation communications. Since these orbits are closest to the Earth, they are the most influenced by atmospheric drag. The influence on a body with cross-sectional area $A_d$ moving at speed $U_\infty$ through a fluid with density $\rho$ is mathematically defined by the drag force $F_d$ (measured in Newtons) as $F_d := \frac{1}{2} \rho C_d  A_d U_\infty^2$. The drag coefficient $C_d = \frac{2F_d}{\rho A_d U_\infty ^2}$ measured the percentage of the total dynamic head $ \frac{1}{2} \rho U_\infty^2$ is converted to drag force experienced by the body, per unit area. It is a measure of how ``streamlined" the geometry of body is, and its numerical value typically ranges from $2.0$ to $2.5$ for LEO satellites\footnote{At LEO altitudes, the air around the satellite is in its free-molecular regime, thus it is possible for the value of drag coefficient to exceed 1.}.
 
 Our experiment involved the simulation of 5 satellites in identical \SI{300}{\kilo\metre}, \SI{45}{\degree} inclination, circular orbits around the Earth, under the influence of HPOP perturbations with varying values of drag coefficient $C_d$, ranging from $2$ to $10$ in uniform increments. We note that these values are largely higher than common values for typical LEO satellites, as the experiment was designed to test the efficacy of the HPOP propagator. Except for drag coefficient, all satellites had identical force models, including up to 21st-order Joint Gravity Model (JGM) perturbations, lunisolar influences, and spherical SRP accelerations (but no albedo radiation effects). The satellites were all given the same Area-to-Mass ratio of \SI{0.02}{\metre\squared\per\kilogram}. The altitude was indirectly tracked via the fixed orbital radius spherical element $r$ (note $h = r - R_E$, where $h$ is the altitude and $R_E = \SI{6378}{\kilo\metre}$ is the mean radius of the Earth), and the simulation was run from 11/01/2019, 12:00:00 UTC to 11/05/2019, 12:00:00 UTC. We note that, due to orbital decay induced by atmospheric drag, some of the simulations were truncated at an altitude of roughly \SI{80}{\kilo\metre}\footnote{The HPOP propagator is most appropriate at altitudes of \SI{120}{\kilo\metre} and above, as it does not fully model the transition to continuum flow. Thus, the results below this altitude are unlikely to give reliable results.}. The results of our simulation are displayed in Figure~\ref{fig:drag_coefficient}.
 
@@ -37,10 +37,88 @@ Our experiment involved the simulation of 5 satellites in identical \SI{300}{\ki
 From Figure~\ref{fig:drag_coefficient} we observe a non-monotonic, downward drift in orbital radius for each satellite, with stronger effects for stronger values of drag coefficient. This reflects expectation, as satellites with higher $C_d$ will experience a higher drag force and therefore decay faster. Note that the four satellites with higher-than-realistic drag coefficients (Black with $C_d = 10$, Green with $C_d = 8$, Yellow with $C_d = 6$, Magenta with $C_d = 4$) all re-enter through the Kalman line (an altitude of $h = \SI{100}{\kilo\metre}$, or radius $r=\SI{6478}{\kilo\metre}$). The non-monotonic oscillations (at a natural frequency of roughly 90 minutes) are due to the orbital elongation due to the influence of drag: as the satellite's orbit is lowered, its eccentricity increases above 0, effectively changing the satellite's trajectory from a perfectly circular to an elliptical orbit. Thus, the satellite rises to apogee and falls to perigee with each iteration, giving rise to the oscillations in Figure~\ref{fig:drag_coefficient}. In fact, for an initial orbital semi-major axis of $a=\SI{6678}{\kilo\metre}$, the initial orbital period is calculated as $\tau = 2\pi \sqrt{a^3\mu^{-1}} \approx 90\text{min}35\text{s}$ (where $\mu \approx \SI{3.98e5}{\kilo\metre^3\second^{-2}}$ is Earth's constant of gravitation), which exactly corresponds to the natural frequency of the oscillations.
 
 \subsection{Medium Earth Orbit Vehicle}
+This experiment involved the addition of a new satellite in a circular, medium Earth orbit (MEO). This orbit family, with  is used to provide ground coverage with a communication constellation that uses fewer, slower moving satellites that can have orbital periods of about 6 hours and mean altitudes in the tens of thousands kilometers. Due to this high altitude, MEO satellites suffer less from non-sphericity and atmospheric effects, but are more exposed to SRP as they typically spend most of their orbital periods in sunlight.
+
+Our experiment considered a MEO satellite at an altitude of \SI{10,000}{\kilo\metre} and inclination of \SI{15}{\degree}, with a resulting initial orbital period of $\tau \approx 5\text{h}47\text{min}55\text{s}$. Using the HPOP propagator with the same settings as in Section~\ref{subsec:LEO}, with a drag coefficient of $C_d = 2$, we found this satellite to have a negligible orbital degradation, as is expected following the diminished effects of atmospheric drag at high altitudes (although a slight non-circularity of the orbit was observed). Keeping the LEO satellite with $C_d =2$, we computed the access windows between the two satellites (given the simulation began with the MEO satellite directly above the LEO satellite), and found them to occur regurlarly at roughly \SI{50}{\minute} intervals separated by \SI{60}{\minute} Earth-obscured periods. Furhter, we computed the Lighting Times (i.e. when the satellite is illuminated by the Sun) for the MEO satellite. The results are displayed in Figure~\ref{fig:meo_solar}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{LaTeX/Figures/MEO_Satellite_Lighting_Times.png}
+    \caption{Lighting times for the MEO satellite. The satellite spends most of its orbital period in sunlight, with a few hours per day spent between umbra and penumbra.}
+    \label{fig:meo_solar}
+\end{figure}
+
+Figure~\ref{fig:meo_solar} confirms the expected solar illumination pattern for a typical MEO satellite. The satellite falls behind earth's shadow only a few hours per day, with most of its orbital period spent in sunlight and a few hours per day spent between umbra (predominantly) and penumbra (in the rapid transition behind Earth's shadow). This is an important consideration for this type of satellite, as it will be required to carry smaller batteries compared to a non Sun-synchronous, LEO satellite.
 
 \subsection{Highly Elliptical Orbit Vehicle}
 
+This experiment analyses a satellite in a Highly Elliptical Orbit (HEO). HEOs are a class of orbit characterised by a low-altitude perigee and a very high-altitude apogee, resulting in a high eccentricity. For this study, we specifically model a \emph{Molniya} orbit, a semi-synchronous HEO originally conceived by the Soviet Union for high-latitude communications. A Molniya orbit has a unique set of orbital parameters: it possesses a high eccentricity, an orbital period of approximately 12 hours (half a sidereal day), and a very specific inclination of $i \approx 63.4^\circ$. This inclination is known as the \emph{critical inclination}, and its selection is deliberate: at this angle, the strong perturbations on the argument of perigee caused by the Earth's oblateness (the J2 effect) are nullified. This prevents the orbit's perigee from rotating over time. By setting the argument of perigee to $\omega = 270^\circ$, the orbit's apogee (its highest point) is fixed over the Northern Hemisphere. The satellite then spends the vast majority of its orbital period--upwards of 11 hours--hovering over high-latitude regions. During the cold war, this provided an ideal solution for soviet engineers to perform spying and surveillance operations over the United States. It is also helpful in the modern day for countries like Russia or Canada, which are poorly served by equatorial geostationary satellites. Satellites in Molniya orbits experience a varying perturbative environment: they are heavily influenced by lunisolar gravity at their high apogee, whilst also passing through the dense Van Allen radiation belts at perigee. Atmospheric drag, however, is only a significant factor during the brief passage through this low perigee, but can contribute towards causing a precession of the line of nodes.
+
+Our experiment considered a HEO satellite with two sets of orbital paramteters: the first is an STK-default Molniya orbit, and the second is at \SI{40,000}{\kilo\metre} apogee altitude, \SI{1,000}{\kilo\metre} perigee altitude, and \SI{40}{\degree} inclination. The two sets of orbital elements are summarised in Table~\ref{tab:heo_params}.
+
+\begin{table}[h!]
+\centering
+\caption{Orbital element sets for the HEO vehicle experiment. Epoch: 1 Nov 2019, 12:00:00.000 UTC.}
+\label{tab:heo_params}
+\begin{tabular}{l|c|c|c}
+\hline
+\textbf{Parameter} & \textbf{Set 1 (Molniya)} & \textbf{Set 2 (HEO)} & \textbf{Units} \\
+\hline
+Semimajor Axis ($a$) & 26553.4 & 26878.0 & \si{\kilo\metre} \\
+Eccentricity ($e$) & 0.740969 & 0.725482 & -- \\
+Inclination ($i$) & 63.4 & 40.0 & \si{\degree} \\
+Argument of Perigee ($\omega$) & 270 & 270 & \si{\degree} \\
+RAAN ($\Omega$) & 120.485 & 120.485 & \si{\degree} \\
+True Anomaly ($f$) & 0 & 0 & \si{\degree} \\
+\hline
+\end{tabular}
+\end{table}
+
+Using the first set of orbital elements from Table~\ref{tab:heo_params}, the ground track was observed to lie above the United States for the majority of the orbital period, scanning the entire country from south to north before tracing out a wide, U-shaped path over the southern pacific ocean during perigee passage. In the subsequent revolution, the Earth had rotated beneath the Molniya satellite, shifting its apogee projection to lie above Siberia. The line of apsides ($\omega$) was fixed in place, as expected at the critical inclination angle. The line of nodes was observed to precess due to the influence of perturbations, shifting the projected location of apogee westward by roughly \SI{135}{\kilo\metre} with each revolution\footnote{It was found that the \texttt{J2Perturbation} and \texttt{J4Perturbation} propagators did not produce this westward shift, whereas the \texttt{HPOP} propagator did produce it even with drag and SRP turned off. We investigated the order of the JGM, and found that changing this from 1 to 2 caused the shift to appear. Thus, the J2 factor causes the effect, but not through precession of the line of nodes (otherwise the \texttt{J2Perturbation} and \texttt{J4Perturbation} propagators would have also produced the drift). Additionally, raising the altitude of perigee caused the drift to become more dramatic. We hypothesise that the westward drift is caused by an orbital resonance effect: Molniya orbits give repeated ground tracks if the orbital period is approximately one half of a sidereal day, resulting in a half-rotation of the earth per period of the satellite, and thus in a repeating apogee ground track over two distinct locations (e.g. the U.S. and Siberia). The \texttt{HPOP} propagator, unlike the other two, computes the effect of the J2 perturbation on the orbital period. Thus, for a different inclination to that of the default Molniya orbit, the period is no longer synchronised to be one half of a sidereal day and the westward drift is observed. SRP and atmospheric drag have no effect on this. This hypothesis explains why it is the J2 effect that causes the drift, but the \texttt{J2Perturbation} and \texttt{J4Perturbation} propagators do not capture this as they only compute secular drift of the line of nodes and line of apsides, and not the period perturbations.}. On the other hand, using the second set of elements from Table~\ref{tab:heo_params} revealed a softer, bow-tie shaped ground track with lower-latitude apogee projection, which exhibited a similar westward drift in the apogee location over subsequent orbits (precession of the line of nodes). This time, the line of apsides was observed to rotate due to the inclination no longer cancelling the J2 perturbations on this orbital parameter. Computing the access of this HEO satellite to the other two (LEO and MEO), we found that the HEO and MEO satellite had almost continuous line of sight throughout the mission, whereas HEO and LEO had intermittent line of sight with a frequency of Earth-obscurations equal to the inverse of the orbital period of the LEO satellite. This is a helpful property as the HEO satellite can be used to ``bridge" the connection between the LEO and MEO satellites (as the HEO to LEO access complemented the few windows of Earth obscuration between HEO and MEO).
+
 \subsection{Geosynchronous Orbit Vehicle}
+
+Our final experiment considers a satellite in a Geosynchronous Earth Orbit (GSO). A geosynchronous orbit is defined by having an orbital period of exactly one sidereal day (approximately 23 hours, 56 minutes, 4 seconds), which corresponds to an altitude of approximately \SI{35786}{\kilo\metre}. This synchronicity means the satellite returns to the same apparent position in the sky after one full Earth rotation. A \emph{geostationary} orbit (GEO) is the most famous and commercially valuable sub-class of GSO. This specific case requires the orbit to be both circular ($e \approx 0$) and to lie directly above the Earth's equator ($i = 0^\circ$). This unique combination causes the satellite to appear perfectly stationary relative to an observer on the ground, making it ideal for fixed-point telecommunications. A minimum of three such satellites are needed to have full \SI{360}{\degree} coverage of the earth. At this extreme altitude, atmospheric drag is entirely negligible. For a general GSO, the dominant perturbations are third-body lunisolar gravity and Solar Radiation Pressure (SRP); for the specific GEO case, the zero equatorial inclination also nullifies $J_2$ perturbations, which are in any case very small due to the great distance from the earth.
+
+Our experiment considered both a GEO and GSO set of orbital parameters, with a longitude of the subsatellite point equal to \SI{-75}{\degree} in both cases. Starting at zero inclination, the GEO satellite appeared to be completely fixed in the sky in absence of perturbations (we used the \texttt{J4Perturbation} propagator). Adding perturbations with the \texttt{HPOP} propagator introduced a small north-south, westward drifting (by roughly \SI{6.5}{\kilo\metre} over the four-day mission) wobble with a 1-day natural frequency, as shown in Figure~\ref{fig:geo_wobble}. The wobble and drift are promoted by lunisolar perturbations (with SRP only causing a slight ``tilt" of the wobble angle in the anticlockwise direction), and the drift effect is mitigated by J2 perturbations (the J2 acts in the opposite direction to lunisolar perturbations for drift, shortening the westward drift by some \SI{10}{\kilo\metre}). Shifting the inclination to \SI{-4}{\degree}, the now GSO satellite traced out a westward drifting, \SI{880}{\kilo\metre} wide ``figure-8" centered at the original hovering point of the GEO satellite, as expected. The overall drift distance was comparable to that of the GEO satellite in Figure~\ref{fig:geo_wobble}. As a final step, we added a ground facility located at \SI{32.8167}{\degree} North, \SI{-117.133}{\degree} East (which corresponds to $32\text{deg}49\text{min}$ latitude, $-117\text{deg}08\text{min}$ longitude, or the location of Marine Corps Air Station Miramar (MCAS Miramar), a military airport in San Diego, California), shown in Figure~\ref{fig:san_diego_facility}.
+
+\begin{figure}[h!]
+    \centering
+    
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LaTeX/Figures/GEO_Wobble.png} % Replace with your GEO wobble screenshot path
+        \caption{GEO satellite "wobble".}
+        \label{fig:geo_wobble}
+    \end{subfigure}
+    \hfill % This adds horizontal space between the subfigures
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LaTeX/Figures/San_Diego_Ground_Facility.png} % Replace with your San Diego screenshot path
+        \caption{Ground facility in San Diego.}
+        \label{fig:san_diego_facility}
+    \end{subfigure}
+    
+    \label{fig:geo_and_facility}
+\end{figure}
+
+Using the facility from Figure~\ref{fig:geo_and_facility}, we were able to compute the access to all four satellites (LEO, MEO, HEO and GEO) for the entire duration of the mission.
+
+% \begin{figure}[h!]
+%     \centering
+%     \begin{minipage}[c]{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{LaTeX/Figures/GEO_Wobble.png} % Replace with your GEO wobble screenshot path
+%         \caption{STK screenshot illustrating the "wobble" of a GEO satellite due to perturbative forces, particularly the combined effects of lunisolar gravity and solar radiation pressure on inclination and eccentricity.}
+%         \label{fig:geo_wobble}
+%     \end{minipage}\hfill
+%     \begin{minipage}[c]{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{LaTeX/Figures/San_Diego_Ground_Facility.png} % Replace with your San Diego ground facility screenshot path
+%         \caption{STK screenshot of a ground facility based in San Diego, representing a typical communication or tracking station.}
+%         \label{fig:san_diego_facility}
+%     \end{minipage}
+% \end{figure}
 
 \subsection{Illustrating The Drag Paradox}
 
