@@ -1,0 +1,10 @@
+"Maneuver Number","Segment","Start Time (UTCG)","Stop Time (UTCG)","Duration (sec)","Est./Act. Finite Burn Duration (sec)","Delta V (m/sec)","Fuel Used (kg)"
+1,"Start_Transfer.DV1",2 Aug 2025 04:00:00.000,2 Aug 2025 04:00:00.000,0.000,31528.520,10765.331539,5358.357
+
+Statistics
+"Total Duration",,"",,,0.000,,,
+"Total Est./Act. Finite Burn Duration",,"",,,,31528.520,,
+"Total Delta V",,"",,,,,10765.331539,
+"Total Fuel Used",,"",,,,,,5358.357
+
+
