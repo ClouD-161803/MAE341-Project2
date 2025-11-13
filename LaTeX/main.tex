@@ -199,7 +199,9 @@ A second, more robust attempt was made using \texttt{Astrogator}'s built-in targ
     
 \end{figure}
 
-The numerical results from this successful simulation provide the answers to the mission planning questions. The Hohmann transfer, defined as the time between the two burns, took 17 hours, 50 minutes, and 26 seconds to complete. The total $\Delta V$ required for this manoeuvre was \textbf{$\SI{4011.38}{\metre\per\second}$ ($\SI{4.011}{\kilo\metre\per\second}$)}, which was composed of an initial burn of $\SI{2811.38}{\metre\per\second}$ and a second, circularisation burn of $\SI{1200.00}{\metre\per\second}$. Interestingly, the total $\Delta V$ computed by the high-fidelity targeter is approximately $\SI{65}{\metre\per\second}$ \emph{less} than the value from the simplified two-body calculation. The theoretical calculation assumes a perfect ``two-body" system, considering only the satellite and a spherically uniform Earth. The \texttt{HPOP} simulation, in contrast, includes the full perturbative environment. Over the long \SI{17.8}{\hour} coast phase to an apogee of nearly \SI{100000}{\kilo\metre}, the satellite travels far into Earth's sphere of influence where third-body gravitational forces are no longer negligible. The dominant perturbations in this regime are from the Sun and the Moon (lunisolar gravity). These third bodies exert their own gravitational pull on the satellite, effectively adding or removing small amounts of energy from the orbit. In this specific simulation, the $\Delta V$ was \emph{lower}, which implies that the geometry of the transfer relative to the Sun and Moon was favourable. The combined lunisolar gravity provided a small, beneficial "gravity assist" to the satellite, reducing the propulsive effort required from the engine to achieve the target orbit. This highlights a very important concept in mission design: for high-energy transfers, the timing of the manoeuvre is critical, as a different launch date could place the Sun and Moon in a disadvantageous position, potentially \emph{increasing} the total $\Delta V$ required.
+The numerical results from this successful simulation provide the answers to the mission planning questions. The Hohmann transfer, defined as the time between the two burns, took \textbf{17 hours, 50 minutes, and 26 seconds} to complete. The total $\Delta V$ required for this manoeuvre was \textbf{$\SI{4075.72}{\metre\per\second}$ ($\SI{4.076}{\kilo\metre\per\second}$)}, which was composed of an initial burn of $\SI{2808.41}{\metre\per\second}$ and a second, circularisation burn of $\SI{1267.31}{\metre\per\second}$. The total fuel consumed was $\SI{6299.26}{\kilo\gram}$.
+
+These results were obtained after re-running the simulation with a tighter targeter tolerance for eccentricity (0.001 vs. the previous 0.1). With this high-precision tolerance, the total $\Delta V$ computed by the high-fidelity targeter is \textbf{$\SI{4075.72}{\metre\per\second}$}, which is almost identical to the theoretical two-body calculation of $\SI{4076}{\metre\per\second}$. This demonstrates that for this manoeuvre, the perturbative effects from lunisolar gravity over the $\approx \SI{18}{\hour}$ transfer are minimal and largely self-cancelling. The previous, lower $\Delta V$ reading ($\approx \SI{4011}{\metre\per\second}$) was an artefact of the loose tolerance, which allowed the targeter to ``solve" the problem with a non-zero final eccentricity, thus requiring less fuel.
 
 
 \subsection{Bielliptic Transfer}
@@ -232,7 +234,7 @@ Theoretically, this confirms that for this $r_2/r_1 \approx 15$ ratio, the bi-el
 
 \subsubsection{STK Implementation}
 
-Learning from the previous experiment, the bi-elliptic transfer was implemented directly using \texttt{Astrogator}'s built-in targeter, forgoing any attempt to use the pre-calculated theoretical values. The manoeuvre was constructed as a three-burn sequence using the \texttt{HPOP} propagator. The first target sequence solved for a burn to achieve an apogee altitude of $\SI{206340}{\kilo\metre}$ (twice the final radius), followed by a propagation segment to stop at this apogee. The second burn, executed at this distant apogee, targeted a perigee altitude of $\SI{96792}{\kilo\metre}$, followed by a long coast back inwards to this new perigee. The final target sequence solved for the third burn, targeting an eccentricity of 0 to circularise the orbit. This successful three-burn sequence is visualised in Figure~\ref{fig:bielliptic_transfer}.
+Learning from the previous experiment, the bi-elliptic transfer was implemented directly using \texttt{Astrogator}'s built-in targeter, forgoing any attempt to use the pre-calculated theoretical values. The manoeuvre was constructed as a three-burn sequence using the \texttt{HPOP} propagator. The first target sequence solved for a burn to achieve an apogee altitude of $\SI{206340}{\kilo\metre}$ (twice the final radius), followed by a propagation segment to stop at this apogee. The second burn, executed at this distant apogee, targeted a perigee altitude of $\SI{96792}{\kilo\metre}$, followed by a long coast back inwards to this new perigee. The final target sequence solved for the third burn, targeting an eccentricity of 0 (with a 0.001 tolerance) to circularise the orbit. This successful three-burn sequence is visualised in Figure~\ref{fig:bielliptic_transfer}.
 
 \begin{figure}[h!]
     \centering
@@ -240,33 +242,57 @@ Learning from the previous experiment, the bi-elliptic transfer was implemented 
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{LaTeX/Figures/Bielliptic_Transfer.png}
-        \caption{The successful targeter-based bi-elliptic transfer. The initial (blue), first transfer (purple), second transfer (green), and final (yellow) orbits are shown.}
+        \caption{The successful targeter-based bielliptic transfer. The initial (green), first transfer (cyan), second transfer (white), and final (red) orbits are shown.}
         \label{fig:bielliptic_transfer}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        % Leave this blank or add a placeholder image
-        % \includegraphics[width=\textwidth]{LaTeX/Figures/Inclination_Change.png} 
-        \vspace{5cm} % Placeholder vertical space
-        \caption{Placeholder for the inclination change manoeuvre.}
-        \label{fig:inclination_change}
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Both_Transfers.png.png} 
+        \caption{The Hohmann (inner) and bielliptic (outer) transfers superposed on the same STK visual. We can see they start and finish at the same orbits.}
+        \label{fig:both_transfers}
     \end{subfigure}
 
 \end{figure}
 
-The total transfer, from the first burn to the third, took 5 days, 12 hours, 15 minutes, and 44 seconds. The total $\Delta V$ required for this manoeuvre was $\SI{4028.86}{\metre\per\second}$ ($\SI{4.029}{\kilo\metre\per\second}$), composed of a first burn of $\SI{2978.18}{\metre\per\second}$, a second burn of $\SI{781.80}{\metre\per\second}$, and a third burn of $\SI{-268.89}{\metre\per\second}$ (retrograde). Contrast these against the Hohmann transfer:
+The total transfer, from the first burn to the third, took \textbf{5 days, 12 hours, 15 minutes, and 44 seconds}. The total $\Delta V$ required for this manoeuvre was \textbf{$\SI{4056.27}{\metre\per\second}$ ($\SI{4.056}{\kilo\metre\per\second}$)}, composed of a first burn of $\SI{2969.87}{\metre\per\second}$, a second burn of $\SI{782.72}{\metre\per\second}$, and a third, retrograde burn of $\SI{-303.68}{\metre\per\second}$. The total fuel consumed was $\SI{6334.74}{\kilo\gram}$. We turn our attention to a comparison with the Hohmann transfer. The two transfers are plotted on the same visual in Figure~\ref{fig:both_transfers}, and the orbital radii of both satellites for their transfer periods are plotted in Figure~\ref{fig:transfers_radii}. Contrasting numerical results, we have:
 
 \begin{itemize}
-    \item Hohmann Transfer: $\SI{4.011}{\kilo\metre\per\second}$ and \SI{17.8}{\hour} total time.
-    \item Bielliptic Transfer: $\SI{4.029}{\kilo\metre\per\second}$ and $\SI{132.26}{\hour} \approx \SI{5.5}{\day}$ total time.
+    \item Hohmann Transfer: $\SI{4.076}{\kilo\metre\per\second}$, $\SI{6299.26}{\kilo\gram}$ fuel, and \SI{17.8}{\hour} total time.
+    \item Bi-elliptic Transfer: $\SI{4.056}{\kilo\metre\per\second}$, $\SI{6334.74}{\kilo\gram}$ fuel, and $\SI{132.26}{\hour} \approx \SI{5.5}{\day}$ total time.
 \end{itemize}
 
-Comparing these results with those of the Hohmann transfer, we concluded that, for this specific problem, the bi-elliptic transfer is unambiguously inferior. The theoretical $\Delta V$ saving ($\approx \SI{19}{\metre\per\second}$) not only evaporated but was reversed in the high-fidelity simulation, resulting in a manoeuvre that cost $\approx \SI{18}{\metre\per\second}$ \emph{more} than the Hohmann (likely due to unfavourable lunisolar perturbations for the bielliptic transfer, and favourable ones for the Hohmann transfer). Furthermore, this small $\Delta V$ difference is dwarfed by the prohibitive time cost, which increased from less than a day to nearly a week. As a mission planner, the Hohmann transfer is the clear and obvious choice. The bielliptic transfer's theoretical advantage only applies at extreme $r_2/r_1$ ratios (and often with an even larger $r_b$), but this experiment shows that in a real, perturbed environment, the enormous time penalty exposes the satellite to mission-altering disturbances, negating any minor fuel savings. In addition, we note that the perturbation effects are harder to predict and exploit in advance using the simplified setting we adopted. For high-stakes missions, where savings can be on the order of millions of dollars, engineers exploit the effects of perturbations to their advantage to maximise fuel/time savings.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{LaTeX/Figures/Transfers_Comparison.png}
+    \caption{Orbital radius (\si{\kilo\metre}) for both the Hohmann transfer (green) and bielliptic transfer (black).}
+    \label{fig:transfers_radii}
+\end{figure}
 
-
+Comparing these results, the trade-off is precisely as theory predicted. The bi-elliptic transfer is slightly more fuel-efficient, saving \textbf{$\approx \SI{20}{\metre\per\second}$} in $\Delta V$ compared to the Hohmann transfer. This is because the $r_2/r_1 \approx 15$ ratio is large enough (greater than 11.94) to realise this advantage. However, this fuel saving is minimal, and the STK simulation shows the bi-elliptic's total fuel consumption is slightly \emph{higher} ($\SI{6334.74}{\kilo\gram}$ vs $\SI{6299.26}{\kilo\gram}$). Furthermore, this negligible saving is dwarfed by the prohibitive time cost, which increased from less than a day to nearly a week. As a mission planner, the Hohmann transfer is still the clear and obvious choice, unless the $\approx \SI{20}{\metre\per\second}$ $\Delta V$ saving was absolutely critical.
 
 \subsection{Inclination Change}
+
+A third class of orbital manoeuvre involves changing the \emph{inclination} of the satellite's orbit. This is a propulsive manoeuvre designed to alter the tilt of the orbital plane relative to the Earth's equatorial plane, without necessarily changing the orbit's altitude or shape. Such a manoeuvre is fundamentally different from in-plane burns (like the Hohmann transfer) as it requires a significant thrust component \emph{normal} (perpendicular) to the orbital plane. These manoeuvres are critical for mission profiles that require high-latitude access, most notably for placing satellites into polar or near-polar orbits. Polar orbits are essential for Earth observation, remote sensing, and reconnaissance, as their north-south path combined with the Earth's east-west rotation allows a satellite to scan the entire surface of the globe over a period of days. However, it is difficult to launch a satellite directly into this type of orbit, as most launch centres are located near the equator to make use of the ``carousel" effect of the spinning globe. Thus, these orbits are often initially launched with a lower inclination and subsequently raised.
+
+\begin{figure}[h!]
+    \centering
+    
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Polar_Transfer.png}
+        \caption{.}
+        \label{fig:polar_transfer}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{} 
+        \caption{plot of inclination over time.}
+        \label{fig:inclination_plot}
+    \end{subfigure}
+
+\end{figure}
 
 \subsection{Sphere of Influence}
 
