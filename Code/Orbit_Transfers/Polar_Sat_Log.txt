@@ -1,0 +1,71 @@
+Astrogator Log File; DriverMCS: Mission_Control_Sequence
+-------------------------------------------------------------
+
+
+----------------------------------------------
+Begin targeter profile Start_Transfer.Differential_Corrector
+
+Initial control parameters:
+
+Unscaled Controls:
+Name                                          Current Value           Last Update         Total Correction
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.X -7611.779014533288 m/sec  0.000000000000 m/sec -7611.779014533288 m/sec
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.Y  7612.698823966950 m/sec  0.000000000000 m/sec  7612.698823966950 m/sec
+
+
+Homotopy step   1 of   1
+
+Intermediate Goals Desired:
+DV1 : Eccentricity   0.000000000000    
+DV1 : Inclination   90.000000000000 deg
+
+
+
+---Running one step of the differential corrector...
+
+--------------------------------------------------------
+
+<<< Targeting Finished >>>
+    [Goals met]
+
+
+--------------------------------------------------------
+
+---Done. (running one step of the differential corrector.)
+
+Params from single diff corr
+
+Unscaled Controls:
+Name                                          Current Value           Last Update         Total Correction
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.X -7611.779014533288 m/sec  0.000000000000 m/sec -7611.779014533288 m/sec
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.Y  7612.698823966950 m/sec  0.000000000000 m/sec  7612.698823966950 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                  Current Value              Desired          Difference           Tolerance
+DV1 : Eccentricity   0.000023828707       0.000000000000      0.000023828707      0.001000000000    
+DV1 : Inclination   89.993759489212 deg  90.000000000000 deg -0.006240510788 deg  0.100000000000 deg
+
+
+
+----------------------------------------------
+Final Params from Homotopy Diff Corr
+
+Unscaled Controls:
+Name                                          Current Value           Last Update         Total Correction
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.X -7611.779014533288 m/sec  0.000000000000 m/sec -7611.779014533288 m/sec
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.Y  7612.698823966950 m/sec  0.000000000000 m/sec  7612.698823966950 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                  Current Value              Desired          Difference           Tolerance
+DV1 : Eccentricity   0.000023828707       0.000000000000      0.000023828707      0.001000000000    
+DV1 : Inclination   89.993759489212 deg  90.000000000000 deg -0.006240510788 deg  0.100000000000 deg
+
+
+
+----------------------------------------------
+
+*********** Done Targeting************************
+
+End targeter profile Start_Transfer.Differential_Corrector

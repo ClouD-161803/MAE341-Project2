@@ -1,0 +1,480 @@
+Astrogator Log File; DriverMCS: Mission_Control_Sequence
+-------------------------------------------------------------
+
+
+----------------------------------------------
+Begin targeter profile Start_Transfer.Differential_Corrector
+
+Initial control parameters:
+
+Unscaled Controls:
+Name                                          Current Value           Last Update         Total Correction
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.X  2978.175947511560 m/sec  0.000000000000 m/sec  2978.175947511560 m/sec
+
+
+Homotopy step   1 of   1
+
+Intermediate Goals Desired:
+DV1 : Radius_Of_Apoapsis  206340.000000000000 km
+
+
+
+---Running one step of the differential corrector...
+
+--------------------------------------------------------
+
+<<< Targeting Finished >>>
+    [Goals met]
+
+
+--------------------------------------------------------
+
+---Done. (running one step of the differential corrector.)
+
+Params from single diff corr
+
+Unscaled Controls:
+Name                                          Current Value           Last Update         Total Correction
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.X  2978.175947511560 m/sec  0.000000000000 m/sec  2978.175947511560 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                            Current Value                 Desired         Difference          Tolerance
+DV1 : Radius_Of_Apoapsis  206340.000015757512 km  206340.000000000000 km  0.000015757501 km  0.100000000000 km
+
+
+
+----------------------------------------------
+Final Params from Homotopy Diff Corr
+
+Unscaled Controls:
+Name                                          Current Value           Last Update         Total Correction
+DV1 : ImpulsiveMnvr.Pointing.Cartesian.X  2978.175947511560 m/sec  0.000000000000 m/sec  2978.175947511560 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                            Current Value                 Desired         Difference          Tolerance
+DV1 : Radius_Of_Apoapsis  206340.000015757512 km  206340.000000000000 km  0.000015757501 km  0.100000000000 km
+
+
+
+----------------------------------------------
+
+*********** Done Targeting************************
+
+End targeter profile Start_Transfer.Differential_Corrector
+----------------------------------------------
+Begin targeter profile Intermediate_Transfer.Differential_Corrector
+
+Initial control parameters:
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  730.902568129213 m/sec  0.000000000000 m/sec  730.902568129213 m/sec
+
+
+Homotopy step   1 of   1
+
+Intermediate Goals Desired:
+DV2 : Radius_Of_Periapsis  103170.000000000000 km
+
+
+
+---Running one step of the differential corrector...
+
+-------------------------------------------------------------
+Iteration =   1
+Unscaled Intermediate Constraints:
+Name                            Current Value                 Desired             Difference          Tolerance
+DV2 : Radius_Of_Periapsis  90170.000178529473 km  103170.000000000000 km -12999.999821470528 km  0.100000000000 km
+
+
+
+Performing one Newton-Raphson Step...
+
+Perturbation evaluation +1
+Controls:
+Name                                                 Value          Perturbation       Scaled Perturbation
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  731.002568129213 m/sec  0.100000000000 m/sec      0.100000000000
+
+Constraints:
+Name                                    Value              Change          Scaled Change
+DV2 : Radius_Of_Periapsis  90193.911275656923 km  23.911097127452 km   0.000231764050862
+
+
+Partial derivative matrix (scaled) :
+
+     0.00231764050862
+
+Newton Step Done...
+
+DC proposed step:
+Name                                               Scaled         Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  54.368060788583  54.368060788583 m/sec
+
+
+Step with Max Step limits applied:
+Name                                               Scaled         Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  54.368060788583  54.368060788583 m/sec
+
+
+Step final values:
+
+Unscaled Controls:
+Name                                         Current Value            Last Update        Total Correction
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  785.270628917796 m/sec  54.368060788583 m/sec  785.270628917796 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired           Difference          Tolerance
+DV2 : Radius_Of_Periapsis  104121.269262930771 km  103170.000000000000 km  951.269262930766 km  0.100000000000 km
+
+
+
+-------------------------------------------------------------
+Iteration =   2
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired           Difference          Tolerance
+DV2 : Radius_Of_Periapsis  104121.269262930771 km  103170.000000000000 km  951.269262930766 km  0.100000000000 km
+
+
+
+Updating partials with Secant method...
+
+Partial derivative matrix (scaled) :
+
+     0.00248723283236
+
+Secant Update Done...
+
+DC proposed step:
+Name                                              Scaled        Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X -3.707093942526 -3.707093942526 m/sec
+
+
+Step with Max Step limits applied:
+Name                                              Scaled        Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X -3.707093942526 -3.707093942526 m/sec
+
+
+Step final values:
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  781.563534975270 m/sec -3.707093942526 m/sec  781.563534975270 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired          Difference          Tolerance
+DV2 : Radius_Of_Periapsis  103105.866455632451 km  103170.000000000000 km -64.133544367552 km  0.100000000000 km
+
+
+
+-------------------------------------------------------------
+Iteration =   3
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired          Difference          Tolerance
+DV2 : Radius_Of_Periapsis  103105.866455632451 km  103170.000000000000 km -64.133544367552 km  0.100000000000 km
+
+
+
+Updating partials with Secant method...
+
+Partial derivative matrix (scaled) :
+
+     0.00265491937856
+
+Secant Update Done...
+
+DC proposed step:
+Name                                              Scaled        Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  0.234142620179  0.234142620179 m/sec
+
+
+Step with Max Step limits applied:
+Name                                              Scaled        Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  0.234142620179  0.234142620179 m/sec
+
+
+Step final values:
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  781.797677595449 m/sec  0.234142620179 m/sec  781.797677595449 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired         Difference          Tolerance
+DV2 : Radius_Of_Periapsis  103169.705736186355 km  103170.000000000000 km -0.294263813645 km  0.100000000000 km
+
+
+
+-------------------------------------------------------------
+Iteration =   4
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired         Difference          Tolerance
+DV2 : Radius_Of_Periapsis  103169.705736186355 km  103170.000000000000 km -0.294263813645 km  0.100000000000 km
+
+
+
+Updating partials with Secant method...
+
+Partial derivative matrix (scaled) :
+
+     0.00264273781728
+
+Secant Update Done...
+
+DC proposed step:
+Name                                              Scaled        Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  0.001079268121  0.001079268121 m/sec
+
+
+Step with Max Step limits applied:
+Name                                              Scaled        Unscaled
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  0.001079268121  0.001079268121 m/sec
+
+
+Step final values:
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  781.798756863570 m/sec  0.001079268121 m/sec  781.798756863570 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired         Difference          Tolerance
+DV2 : Radius_Of_Periapsis  103170.000091493319 km  103170.000000000000 km  0.000091493323 km  0.100000000000 km
+
+
+
+--------------------------------------------------------
+
+<<< Targeting Finished >>>
+    [Goals met]
+
+
+--------------------------------------------------------
+
+---Done. (running one step of the differential corrector.)
+
+Params from single diff corr
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  781.798756863570 m/sec  0.001079268121 m/sec  781.798756863570 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired         Difference          Tolerance
+DV2 : Radius_Of_Periapsis  103170.000091493319 km  103170.000000000000 km  0.000091493323 km  0.100000000000 km
+
+
+
+----------------------------------------------
+Final Params from Homotopy Diff Corr
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV2 : ImpulsiveMnvr.Pointing.Cartesian.X  781.798756863570 m/sec  0.001079268121 m/sec  781.798756863570 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                             Current Value                 Desired         Difference          Tolerance
+DV2 : Radius_Of_Periapsis  103170.000091493319 km  103170.000000000000 km  0.000091493323 km  0.100000000000 km
+
+
+
+----------------------------------------------
+
+*********** Done Targeting************************
+
+End targeter profile Intermediate_Transfer.Differential_Corrector
+----------------------------------------------
+Begin targeter profile Finish_Transfer.Differential_Corrector1
+
+Initial control parameters:
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -377.907366162305 m/sec  0.000000000000 m/sec -377.907366162305 m/sec
+
+
+Homotopy step   1 of   1
+
+Intermediate Goals Desired:
+DV3 : Eccentricity  0.000000000000
+
+
+
+---Running one step of the differential corrector...
+
+-------------------------------------------------------------
+Iteration =   1
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.073711829454  0.000000000000  0.073711829454  0.000100000000
+
+
+
+Performing one Newton-Raphson Step...
+
+Perturbation evaluation +1
+Controls:
+Name                                                 Value          Perturbation       Scaled Perturbation
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -377.807366162305 m/sec  0.100000000000 m/sec      0.100000000000
+
+Constraints:
+Name                         Value          Change       Scaled Change
+DV3 : Eccentricity  0.073613897965 -0.000097931490  -9.79314896734e-05
+
+
+Partial derivative matrix (scaled) :
+
+   -0.000979314896734
+
+Newton Step Done...
+
+DC proposed step:
+Name                                               Scaled         Unscaled
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X  75.268771771017  75.268771771017 m/sec
+
+
+Step with Max Step limits applied:
+Name                                               Scaled         Unscaled
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X  75.268771771017  75.268771771017 m/sec
+
+
+Step final values:
+
+Unscaled Controls:
+Name                                         Current Value            Last Update        Total Correction
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -302.638594391288 m/sec  75.268771771017 m/sec -302.638594391288 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.001464427713  0.000000000000  0.001464427713  0.000100000000
+
+
+
+-------------------------------------------------------------
+Iteration =   2
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.001464427713  0.000000000000  0.001464427713  0.000100000000
+
+
+
+Updating partials with Secant method...
+
+Partial derivative matrix (scaled) :
+
+   -0.000959858916803
+
+Secant Update Done...
+
+DC proposed step:
+Name                                              Scaled        Unscaled
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X  1.525669749385  1.525669749385 m/sec
+
+
+Step with Max Step limits applied:
+Name                                              Scaled        Unscaled
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X  1.525669749385  1.525669749385 m/sec
+
+
+Step final values:
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -301.112924641903 m/sec  1.525669749385 m/sec -301.112924641903 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.003018547587  0.000000000000  0.003018547587  0.000100000000
+
+
+
+-------------------------------------------------------------
+Iteration =   3
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.003018547587  0.000000000000  0.003018547587  0.000100000000
+
+
+
+Updating partials with Secant method...
+
+Partial derivative matrix (scaled) :
+
+     0.00101864762971
+
+Secant Update Done...
+
+DC proposed step:
+Name                                              Scaled        Unscaled
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -2.963289266019 -2.963289266019 m/sec
+
+
+Step with Max Step limits applied:
+Name                                              Scaled        Unscaled
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -2.963289266019 -2.963289266019 m/sec
+
+
+Step final values:
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -304.076213907922 m/sec -2.963289266019 m/sec -304.076213907922 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.000001102640  0.000000000000  0.000001102640  0.000100000000
+
+
+
+--------------------------------------------------------
+
+<<< Targeting Finished >>>
+    [Goals met]
+
+
+--------------------------------------------------------
+
+---Done. (running one step of the differential corrector.)
+
+Params from single diff corr
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -304.076213907922 m/sec -2.963289266019 m/sec -304.076213907922 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.000001102640  0.000000000000  0.000001102640  0.000100000000
+
+
+
+----------------------------------------------
+Final Params from Homotopy Diff Corr
+
+Unscaled Controls:
+Name                                         Current Value           Last Update        Total Correction
+DV3 : ImpulsiveMnvr.Pointing.Cartesian.X -304.076213907922 m/sec -2.963289266019 m/sec -304.076213907922 m/sec
+
+
+Unscaled Intermediate Constraints:
+Name                 Current Value         Desired      Difference       Tolerance
+DV3 : Eccentricity  0.000001102640  0.000000000000  0.000001102640  0.000100000000
+
+
+
+----------------------------------------------
+
+*********** Done Targeting************************
+
+End targeter profile Finish_Transfer.Differential_Corrector1

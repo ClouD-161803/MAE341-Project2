@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
+<TimelineLine_Prefs STK_version = "12.10.0">
+    <Views Type = "Content">
+        <ContentView Name = "Scenario Availability">
+            <Row ClassName = "Scenario" ComponentName = "AvailabilityIntervals" DisplayName = "SOI AvailabilityIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "/Application/STK/Scenario/SOI" Type = "IntervalList">
+                <Interval Name = "SOI AvailabilityIntervals" StartTime = "15 Nov 2019 00:00:00.000" StopTime = "15 Nov 2021 00:00:00.000" />
+            </Row>
+        </ContentView>
+    </Views>
+    <Views Type = "Time">
+        <TimeView FullViewRulerStartTime = "0.000000" FullViewRulerStopTime = "0.000000" GlobalIntervalComp = "AnalysisInterval" GlobalIntervalCompPath = "/Application/STK/Scenario/SOI" GlobalStartOffset = "0.000000" GlobalStartTime = "15 Nov 2019 00:00:00.000" GlobalStopOffset = "0.000000" GlobalStopTime = "15 Nov 2021 00:00:00.000" MaxFullViewTime = "0.000000" MinFullViewTime = "0.000000" Name = "Scenario Analysis Period" ViewportStartTime = "0.000000" ViewportStopTime = "0.000000" />
+    </Views>
+</TimelineLine_Prefs>

@@ -1,0 +1,64 @@
+<?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
+<TimelineLine_Prefs STK_version = "12.10.0">
+    <Views Type = "Content">
+        <ContentView Name = "Scenario Availability">
+            <Row ClassName = "Access" ComponentName = "AccessIntervals" DisplayName = "Facility-Facility_San_Diego-To-Satellite-GEO_Satellite AccessIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "Access:/Application/STK/Scenario/LEO_Vehicle/Facility/Facility_San_Diego;/Application/STK/Scenario/LEO_Vehicle/Satellite/GEO_Satellite" Type = "IntervalList">
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-GEO_Satellite AccessIntervals" StartTime = "1 Nov 2019 12:00:00.000" StopTime = "5 Nov 2019 12:00:00.000" />
+            </Row>
+            <Row ClassName = "Access" ComponentName = "AccessIntervals" DisplayName = "Facility-Facility_San_Diego-To-Satellite-HEO_Satellite AccessIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "Access:/Application/STK/Scenario/LEO_Vehicle/Facility/Facility_San_Diego;/Application/STK/Scenario/LEO_Vehicle/Satellite/HEO_Satellite" Type = "IntervalList">
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-HEO_Satellite AccessIntervals" StartTime = "1 Nov 2019 12:17:31.577" StopTime = "1 Nov 2019 23:50:28.296" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-HEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 12:41:11.592" StopTime = "3 Nov 2019 00:14:53.319" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-HEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 13:05:05.500" StopTime = "4 Nov 2019 00:39:06.054" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-HEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 13:29:12.067" StopTime = "5 Nov 2019 01:03:06.337" />
+            </Row>
+            <Row ClassName = "Access" ComponentName = "AccessIntervals" DisplayName = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "Access:/Application/STK/Scenario/LEO_Vehicle/Facility/Facility_San_Diego;/Application/STK/Scenario/LEO_Vehicle/Satellite/MEO_Satellite" Type = "IntervalList">
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "1 Nov 2019 12:44:12.816" StopTime = "1 Nov 2019 15:24:24.660" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "1 Nov 2019 20:26:18.298" StopTime = "1 Nov 2019 22:59:19.858" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 04:22:07.521" StopTime = "2 Nov 2019 06:59:48.032" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 11:41:28.114" StopTime = "2 Nov 2019 14:22:24.399" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 19:17:16.516" StopTime = "2 Nov 2019 21:50:30.401" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 03:19:28.189" StopTime = "3 Nov 2019 05:55:55.185" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 10:38:52.544" StopTime = "3 Nov 2019 13:20:17.994" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 18:09:52.416" StopTime = "3 Nov 2019 20:43:44.102" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 02:16:02.980" StopTime = "4 Nov 2019 04:51:17.611" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 09:36:25.739" StopTime = "4 Nov 2019 12:18:03.164" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 17:03:54.991" StopTime = "4 Nov 2019 19:38:46.017" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "5 Nov 2019 01:11:25.811" StopTime = "5 Nov 2019 03:45:37.054" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-MEO_Satellite AccessIntervals" StartTime = "5 Nov 2019 08:34:07.959" StopTime = "5 Nov 2019 11:15:39.332" />
+            </Row>
+            <Row ClassName = "Access" ComponentName = "AccessIntervals" DisplayName = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "Access:/Application/STK/Scenario/LEO_Vehicle/Facility/Facility_San_Diego;/Application/STK/Scenario/LEO_Vehicle/Satellite/LEO_Satellite" Type = "IntervalList">
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "1 Nov 2019 12:23:11.574" StopTime = "1 Nov 2019 12:30:38.865" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "1 Nov 2019 13:57:27.181" StopTime = "1 Nov 2019 14:06:23.311" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "1 Nov 2019 15:32:27.350" StopTime = "1 Nov 2019 15:39:54.926" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 06:08:34.908" StopTime = "2 Nov 2019 06:16:12.274" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 07:42:05.346" StopTime = "2 Nov 2019 07:51:04.212" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 09:17:46.576" StopTime = "2 Nov 2019 09:25:11.183" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 10:53:38.132" StopTime = "2 Nov 2019 11:00:07.128" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 12:28:09.128" StopTime = "2 Nov 2019 12:36:07.864" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 14:02:19.381" StopTime = "2 Nov 2019 14:11:11.480" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "2 Nov 2019 15:38:14.570" StopTime = "2 Nov 2019 15:43:05.204" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 06:11:22.874" StopTime = "3 Nov 2019 06:19:54.145" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 07:45:39.943" StopTime = "3 Nov 2019 07:54:09.873" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 09:21:31.770" StopTime = "3 Nov 2019 09:28:13.779" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 10:56:50.062" StopTime = "3 Nov 2019 11:03:29.225" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 12:30:54.489" StopTime = "3 Nov 2019 12:39:17.703" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "3 Nov 2019 14:05:09.170" StopTime = "3 Nov 2019 14:13:30.308" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 04:40:38.745" StopTime = "4 Nov 2019 04:45:14.288" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 06:12:12.569" StopTime = "4 Nov 2019 06:20:58.329" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 07:47:00.060" StopTime = "4 Nov 2019 07:54:50.305" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 09:22:47.023" StopTime = "4 Nov 2019 09:28:57.765" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 10:57:27.269" StopTime = "4 Nov 2019 11:04:26.550" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 12:31:13.948" StopTime = "4 Nov 2019 12:39:48.768" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "4 Nov 2019 14:05:43.581" StopTime = "4 Nov 2019 14:13:00.505" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "5 Nov 2019 04:37:53.409" StopTime = "5 Nov 2019 04:44:34.799" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "5 Nov 2019 06:10:33.797" StopTime = "5 Nov 2019 06:19:10.569" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "5 Nov 2019 07:45:38.900" StopTime = "5 Nov 2019 07:52:45.263" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "5 Nov 2019 09:21:06.872" StopTime = "5 Nov 2019 09:26:59.976" />
+                <Interval Name = "Facility-Facility_San_Diego-To-Satellite-LEO_Satellite AccessIntervals" StartTime = "5 Nov 2019 10:55:11.010" StopTime = "5 Nov 2019 11:02:30.671" />
+            </Row>
+        </ContentView>
+    </Views>
+    <Views Type = "Time">
+        <TimeView FullViewRulerStartTime = "0.000000" FullViewRulerStopTime = "0.000000" GlobalIntervalComp = "AnalysisInterval" GlobalIntervalCompPath = "/Application/STK/Scenario/LEO_Vehicle" GlobalStartOffset = "0.000000" GlobalStartTime = "1 Nov 2019 12:00:00.000" GlobalStopOffset = "0.000000" GlobalStopTime = "5 Nov 2019 12:00:00.000" MaxFullViewTime = "0.000000" MinFullViewTime = "0.000000" Name = "Scenario Analysis Period" ViewportStartTime = "0.000000" ViewportStopTime = "0.000000" />
+    </Views>
+</TimelineLine_Prefs>
