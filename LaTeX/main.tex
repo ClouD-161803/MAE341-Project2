@@ -273,26 +273,31 @@ Comparing these results, the trade-off is precisely as theory predicted. The bi-
 
 \subsection{Inclination Change}
 
-A third class of orbital manoeuvre involves changing the \emph{inclination} of the satellite's orbit. This is a propulsive manoeuvre designed to alter the tilt of the orbital plane relative to the Earth's equatorial plane, without necessarily changing the orbit's altitude or shape. Such a manoeuvre is fundamentally different from in-plane burns (like the Hohmann transfer) as it requires a significant thrust component \emph{normal} (perpendicular) to the orbital plane. These manoeuvres are critical for mission profiles that require high-latitude access, most notably for placing satellites into polar or near-polar orbits. Polar orbits are essential for Earth observation, remote sensing, and reconnaissance, as their north-south path combined with the Earth's east-west rotation allows a satellite to scan the entire surface of the globe over a period of days. However, it is difficult to launch a satellite directly into this type of orbit, as most launch centres are located near the equator to make use of the ``carousel" effect of the spinning globe. Thus, these orbits are often initially launched with a lower inclination and subsequently raised.
+A third class of orbital manoeuvre involves changing the \emph{inclination} of the satellite's orbit. This is a propulsive manoeuvre designed to alter the tilt of the orbital plane relative to the Earth's equatorial plane, without necessarily changing the orbit's altitude or shape. Such a manoeuvre is fundamentally different from in-plane burns (like the Hohmann transfer) as it requires a significant thrust component \emph{normal} (perpendicular) to the orbital plane. These manoeuvres are critical for mission profiles that require high-latitude access, most notably for placing satellites into polar or near-polar orbits. Polar orbits are essential for Earth observation, remote sensing, and reconnaissance, as their north-south path combined with the Earth's east-west rotation allows a satellite to scan the entire surface of the globe over a period of days.
+% However, it is difficult to launch a satellite directly into this type of orbit, as most launch centres are located near the equator to make use of the ``carousel" effect of the spinning globe. Thus, these orbits are often initially launched with a lower inclination and subsequently raised.
+
+To model this manoeuvre, a satellite was initialised in a \SI{500}{\kilo\metre} circular, equatorial orbit ($i = 0^\circ$). Using \texttt{Astrogator}, a single manoeuvre segment was added. The targeter was configured to solve for the necessary impulse to achieve a final inclination of $\SI{90}{\degree}$, while keeping the eccentricity constant at zero. The HPOP propagator then solved for the required $\Delta V$. The resulting manoeuvre, a single burn executed the pacific equatorial node, is visualised in Figure~\ref{fig:polar_transfer}, and the inclination change in Figure~\ref{fig:inclination_plot}.
 
 \begin{figure}[h!]
     \centering
     
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.435\textwidth}
         \centering
         \includegraphics[width=\textwidth]{LaTeX/Figures/Polar_Transfer.png}
-        \caption{.}
+        \caption{Inclination change maneuver in STK, with original (green) and final (red) orbits.}
         \label{fig:polar_transfer}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.555\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{} 
-        \caption{plot of inclination over time.}
+        \includegraphics[width=\textwidth]{LaTeX/Figures/Polar_Sat_Inclination.png} 
+        \caption{Plot of inclination over time. We can see that the entire maneuver is completed in less than \SI{45}{\second}.}
         \label{fig:inclination_plot}
     \end{subfigure}
 
 \end{figure}
+
+The total $\Delta V$ for this 90-degree inclination change was \textbf{$\SI{10765.33}{\metre\per\second}$ ($\SI{10.77}{\kilo\metre\per\second}$)} over a time period of just \SI{45}{\second}. This $\Delta V$ is astronomically large. It is more than 2.5 times the \emph{entire} $\Delta V$ required for the Hohmann transfer to $\SI{96792}{\kilo\metre}$ ($\SI{4.076}{\kilo\metre\per\second}$). This value is consistent with the theoretical calculation for a pure inclination change, $\Delta v = 2 v \sin(\Delta i / 2)$. For our satellite in a \SI{500}{\kilo\metre} orbit, $v \approx \SI{7.608}{\kilo\metre\per\second}$, yielding a theoretical $\Delta v = 2 \times 7.608 \times \sin(90^\circ/2) \approx \SI{10.76}{\kilo\metre\per\second}$, which is an excellent match. This illustrates that changing the direction of the velocity vector is extraordinarily expensive in terms of propellant, which is why mission planners go to great lengths to launch satellites directly into their target inclination, rather than performing large plane changes in LEO. To perform this change more efficiently, the satellite would first have to burn into a highly elliptical transfer orbit. At the apogee of this orbit, the orbital velocity $v$ is minimal, which would drastically reduce the $\Delta V$ required for the plane change burn before a final burn re-circularises the orbit. However, implementing such a maneuver was deemed to be beyond the scope of this project.
 
 \subsection{Sphere of Influence}
 
